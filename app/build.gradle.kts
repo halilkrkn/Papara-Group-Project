@@ -1,6 +1,10 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
+    id("com.android.application")
+    id("kotlin-android")
+    id("dagger.hilt.android.plugin")
+    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -59,6 +63,51 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // Compose dependencies
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Coil Compose
+    implementation(libs.coil.compose)
+
+    // Dagger Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
+
+    //DataStore
+    implementation (libs.androidx.datastore.preferences)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.adapter.rxjava2)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // Lottie
+    implementation(libs.lottie.compose)
+
+
+    // Swipe Refresh
+    implementation(libs.accompanist.swiperefresh)
+
+    // Room
+//    implementation("androidx.room:room-ktx:2.6.1")
+//    kapt("androidx.room:room-compiler:2.6.1")
+//    implementation("androidx.room:room-paging:2.6.1")
+
+
+    implementation(libs.androidx.material.icons.extended)
+
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,4 +115,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
+
+hilt {
+    enableTransformForLocalTests = true
 }
