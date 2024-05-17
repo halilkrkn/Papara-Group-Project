@@ -1,4 +1,4 @@
-package com.halilkrkn.chatchef.presentation.ChatGptScreen
+package com.halilkrkn.chatchef.presentation.FavoriteScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,13 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ChatScreen(modifier: Modifier = Modifier) {
+fun FavoriteScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Chat Gpt Screen", modifier = modifier)
+        Text(text = "Favorite Screen", modifier = modifier)
     }
 }
