@@ -23,6 +23,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.halilkrkn.chatchef.R
 
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notificationClick: () -> Unit) {
@@ -55,7 +57,30 @@ fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notif
 
         },
         actions = {
+            Box(
+                modifier = Modifier
+                    .size(50.dp, 50.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(colorResource(id = R.color.top_app_bar_icon_bg))
+                    .clickable {
+                        notificationClick()
+                        /***
+                        Notification Button Transactions
+                         ***/
+                    }
+            ) {
+                Icon(
+                    imageVector = if (isNotificationOn) {
+                        ImageVector.vectorResource(id = R.drawable.notification_true)
+                    } else {
+                        ImageVector.vectorResource(id = R.drawable.notification_false)
+                    },
+                    tint = colorResource(id = R.color.top_app_bar_icon_fg),
+                    contentDescription = "Back",
+                    modifier = Modifier.align(Alignment.Center),
 
+                )
+            }
 
         }
     )
