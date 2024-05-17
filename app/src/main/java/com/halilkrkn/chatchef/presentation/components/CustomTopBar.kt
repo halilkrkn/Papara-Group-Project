@@ -23,7 +23,15 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.halilkrkn.chatchef.R
 
+/***
+ Example Use:
 
+    CustomTopAppBar(onBackClick = {}, notificationClick = {})
+    -------------------------OR------------------------------
+    CustomTopAppBar(isNotificationOn=true, onBackClick = {}, notificationClick = {})
+
+    isNotificationOn is optional. (Default value is false.)
+ */
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
