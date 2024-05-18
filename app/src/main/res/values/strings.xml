@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChatChef</string>
+    <string name="chat_place_holder">ChatChef</string>
 </resources>
