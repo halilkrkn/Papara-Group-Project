@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -34,7 +35,7 @@ fun MainScreen() {
             BottomBar(navController = navController)
         }
     ) {
-        SetupBottomBarNavGraph(navController = navController)
+        SetupBottomBarNavGraph(navController = navController, modifier = Modifier.padding(it))
     }
 }
 
@@ -50,8 +51,6 @@ fun BottomBar(navController: NavHostController) {
     NavigationBar(
         containerColor = Color.White,
         contentColor = Color.Black,
-        modifier = Modifier
-                .height(IntrinsicSize.Min)
     ) {
         screens.forEach { screen ->
             AddItem(
@@ -71,8 +70,6 @@ fun RowScope.AddItem(
     navController: NavHostController,
 ) {
     NavigationBarItem(
-        modifier = Modifier
-            .requiredHeight(96.dp),
         label = {
             Text(
                 text = screen.title

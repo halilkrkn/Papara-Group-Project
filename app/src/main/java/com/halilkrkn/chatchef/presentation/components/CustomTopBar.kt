@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,6 +23,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.halilkrkn.chatchef.R
+import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 
 /***
  Example Use:
@@ -37,8 +39,10 @@ import com.halilkrkn.chatchef.R
 @Composable
 fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notificationClick: () -> Unit) {
     TopAppBar(
-        modifier = Modifier.padding(top = 10.dp, start = 10.dp, end = 30.dp),
+        modifier = Modifier
+            .padding(start = 10.dp, end = 20.dp),
         title = { Text(text = "") },
+        colors = TopAppBarDefaults.topAppBarColors(MainBackgroundColor),
         navigationIcon = {
 
 
@@ -50,7 +54,7 @@ fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notif
                     .clickable {
                         onBackClick()
                         /***
-                         Back Button Transactions
+                        Back Button Transactions
                          ***/
                     }
             ) {

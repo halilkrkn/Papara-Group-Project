@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BottomContainer(modifier: Modifier = Modifier, sendButtonClicked: (String) -> Unit) {
+fun BottomContainer(modifier: Modifier = Modifier, sendButtonClicked: (String) -> Unit = {}) {
     var value by rememberSaveable { mutableStateOf("") }
 
     Row(
