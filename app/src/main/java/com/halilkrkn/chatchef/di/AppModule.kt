@@ -39,10 +39,16 @@ object AppModule {
     fun provideOpenAIApi(retrofit: Retrofit): ChatChefApi {
         return retrofit.create(ChatChefApi::class.java)
     }
-
+    
     @Provides
     @Singleton
     fun provideOpenAIRepository(openAIApi: ChatChefApi): ChatChefRepository {
         return ChatChefRepositoryImpl(openAIApi)
     }
+    /*
+    @Provides
+    @Singleton
+    fun provideOpenAIRepository(openAIApi: ChatChefApi): ChatChefRepository {
+        return ChatChefRepositoryImpl(ChatChefApi)
+    }*/
 }
