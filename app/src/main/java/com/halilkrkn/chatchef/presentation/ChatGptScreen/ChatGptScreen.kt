@@ -25,6 +25,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptViewModel
+import com.halilkrkn.chatchef.presentation.components.AIChatMessage
+import com.halilkrkn.chatchef.presentation.components.BottomContainer
 import com.halilkrkn.chatchef.presentation.components.AiChatMessage
 import com.halilkrkn.chatchef.presentation.components.CustomTopAppBar
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
@@ -47,10 +49,11 @@ fun ChatGptScreen(
         }
     ) { innerPadding ->
         println(chatState)
+
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(innerPadding),
+                .padding(top = innerPadding.calculateTopPadding()),
         ) {
             Row(
                 modifier = Modifier
@@ -66,6 +69,13 @@ fun ChatGptScreen(
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
+
+
+            if(chatState.error.isNotBlank()){
+                Text(text = chatState.error)
+            }
+            else if (chatState.messageList.isNotEmpty()){
+
             if (chatState.isLoading) {
                 //CircularProgressIndicator()
             }
@@ -73,12 +83,17 @@ fun ChatGptScreen(
                 Text(text = chatState.error)
             }
             else if (chatState.success.isNotEmpty()){
+
                 LazyColumn(
                     modifier = Modifier
                         .weight(1f)
                         .padding(16.dp),
                     reverseLayout = true
                 ) {
+
+                    items(chatState.messageList){
+                        AIChatMessage(message = it.message.content)
+
                     /*
                     items(chatState.success)) { message ->
                         if (message.isUser) {
@@ -89,9 +104,14 @@ fun ChatGptScreen(
                     }*/
                     items(chatState.success){
                         AiChatMessage(message = it.message.content)
+
                     }
                 }
 
+            }
+
+            BottomContainer(){
+                viewModel.sendMessage(it)
             }
         }
     }
