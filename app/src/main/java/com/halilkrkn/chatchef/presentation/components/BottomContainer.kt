@@ -23,7 +23,9 @@ fun BottomContainer(modifier: Modifier = Modifier, sendButtonClicked: (String) -
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 2.dp, bottom = 6.dp)
     ) {
         CustomTextField(
             modifier = Modifier
