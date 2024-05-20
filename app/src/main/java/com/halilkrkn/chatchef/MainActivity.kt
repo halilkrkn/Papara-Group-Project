@@ -13,6 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.halilkrkn.chatchef.navigation.graphs.SetupAuthGraph
 import com.halilkrkn.chatchef.presentation.MainScreen
 import com.halilkrkn.chatchef.ui.theme.ChatChefTheme
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
@@ -35,7 +37,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MainBackgroundColor
                 ) {
-                    MainScreen()
+                    val navController = rememberNavController()
+                    SetupAuthGraph(navController = navController)
+                    //MainScreen()
                 }
             }
         }
