@@ -1,9 +1,7 @@
 package com.halilkrkn.chatchef.di
 
-import com.halilkrkn.chatchef.data.remote.AuthInterceptor
+import com.halilkrkn.chatchef.core.interceptor.ApiInterceptor
 import com.halilkrkn.chatchef.data.remote.ChatChefApi
-import com.halilkrkn.chatchef.data.repository.ChatChefRepository
-import com.halilkrkn.chatchef.data.repository.ChatChefRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +18,7 @@ object AppModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor())
+            .addInterceptor(ApiInterceptor())
             .build()
     }
 

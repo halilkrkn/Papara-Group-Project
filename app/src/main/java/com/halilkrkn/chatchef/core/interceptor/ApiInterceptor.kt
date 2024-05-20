@@ -1,10 +1,10 @@
-package com.halilkrkn.chatchef.data.remote
+package com.halilkrkn.chatchef.core.interceptor
 
 import com.halilkrkn.chatchef.getApiKey
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AuthInterceptor : Interceptor {
+class ApiInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val apiKey = getApiKey()
