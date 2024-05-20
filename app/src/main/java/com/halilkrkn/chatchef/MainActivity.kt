@@ -4,16 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.halilkrkn.chatchef.presentation.MainScreen
+import androidx.navigation.compose.rememberNavController
+import com.halilkrkn.chatchef.navigation.graphs.SetupAuthGraph
 import com.halilkrkn.chatchef.ui.theme.ChatChefTheme
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +31,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MainBackgroundColor
                 ) {
-                    MainScreen()
+                    val navController = rememberNavController()
+                    SetupAuthGraph(navController = navController)
+                    //MainScreen()
                 }
             }
         }

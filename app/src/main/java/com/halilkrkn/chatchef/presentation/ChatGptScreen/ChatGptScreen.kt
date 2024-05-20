@@ -50,7 +50,7 @@ fun ChatGptScreen(
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(innerPadding),
+                .padding(top = innerPadding.calculateTopPadding()),
         ) {
             Row(
                 modifier = Modifier
