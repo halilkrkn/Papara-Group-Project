@@ -16,8 +16,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.halilkrkn.chatchef.presentation.MainScreen
 import com.halilkrkn.chatchef.ui.theme.ChatChefTheme
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        init {
+            System.loadLibrary("chatchef")
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,4 +40,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+private external fun getApiKeyFromNdk(): String
+
+fun getApiKey() : String {
+    return getApiKeyFromNdk()
 }
