@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "565000358904",
+    "project_id": "papara-group-project",
+    "storage_bucket": "papara-group-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565000358904:android:6c8cffec2e751e3b41240d",
+        "android_client_info": {
+          "package_name": "com.halilkrkn.chatchef"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD7UJHNrQA6UBZsZUQFJiG7UQk30UWVMU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
