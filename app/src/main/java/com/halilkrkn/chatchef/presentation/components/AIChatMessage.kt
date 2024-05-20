@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptState
 import com.halilkrkn.chatchef.ui.theme.ColorButton1
 import com.halilkrkn.chatchef.ui.theme.TextPink
 
@@ -72,15 +73,15 @@ fun AIChatMessage(
                 Row {
                     Text(
                         buildAnnotatedString {
-                            append("Hello! ")
-                            withStyle(
+                            append(message)
+                            /*withStyle(
                                 style = SpanStyle(
                                     color = TextPink
                                 )
                             ) {
                                 append("Emmanuel")
                             }
-                            append(", I am ChatChef's AI. How can I help you?")
+                            append(", I am ChatChef's AI. How can I help you?")*/
                         },
                         fontWeight = fontWeight,
                         fontSize = fontSize,
@@ -124,6 +125,6 @@ fun AIChatMessage(
 )
 @Composable
 private fun AiChatMessagePreview() {
-    AiChatMessage()
+    //AIChatMessage()
 }
 

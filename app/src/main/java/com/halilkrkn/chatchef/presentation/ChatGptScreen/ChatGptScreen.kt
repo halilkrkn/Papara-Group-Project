@@ -27,6 +27,7 @@ import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptViewMo
 import com.halilkrkn.chatchef.presentation.components.AIChatMessage
 import com.halilkrkn.chatchef.presentation.components.BottomContainer
 import com.halilkrkn.chatchef.presentation.components.CustomTopAppBar
+import com.halilkrkn.chatchef.presentation.components.UserChatMessage
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 
 @Composable
@@ -77,8 +78,14 @@ fun ChatGptScreen(
                         .padding(16.dp),
                     reverseLayout = true
                 ) {
-                    items(chatState.messageList){
-                        AIChatMessage(message = it.message.content)
+                    items(chatState.messageList.reversed()){
+                        if (it.message.isUser){
+                            UserChatMessage(text = it.message.content, horizontalAlignment = Alignment.End)
+                        }else{
+                            AIChatMessage(
+                                message = it.message.content
+                            )
+                        }
                     }
                 }
             }
