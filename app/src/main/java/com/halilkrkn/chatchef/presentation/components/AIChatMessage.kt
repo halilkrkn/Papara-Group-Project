@@ -36,7 +36,7 @@ import com.halilkrkn.chatchef.ui.theme.ColorButton1
 import com.halilkrkn.chatchef.ui.theme.TextPink
 
 @Composable
-fun AiChatMessage(
+fun AIChatMessage(
     modifier: Modifier = Modifier,
     message: String = "",
     fontWeight: FontWeight = FontWeight.SemiBold,

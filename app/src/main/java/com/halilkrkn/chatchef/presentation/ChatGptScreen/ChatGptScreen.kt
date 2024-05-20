@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +24,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptViewModel
-import com.halilkrkn.chatchef.presentation.components.AiChatMessage
+import com.halilkrkn.chatchef.presentation.components.AIChatMessage
+import com.halilkrkn.chatchef.presentation.components.BottomContainer
 import com.halilkrkn.chatchef.presentation.components.CustomTopAppBar
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 
@@ -46,7 +46,7 @@ fun ChatGptScreen(
             )
         }
     ) { innerPadding ->
-        println(chatState)
+
         Column(
             modifier = modifier
                 .fillMaxWidth()
@@ -66,32 +66,24 @@ fun ChatGptScreen(
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            if (chatState.isLoading) {
-                //CircularProgressIndicator()
-            }
-            else if(chatState.error.isNotBlank()){
+
+            if(chatState.error.isNotBlank()){
                 Text(text = chatState.error)
             }
-            else if (chatState.success.isNotEmpty()){
+            else if (chatState.messageList.isNotEmpty()){
                 LazyColumn(
                     modifier = Modifier
                         .weight(1f)
                         .padding(16.dp),
                     reverseLayout = true
                 ) {
-                    /*
-                    items(chatState.success)) { message ->
-                        if (message.isUser) {
-                            MessageBubble(text = message.content, horizontalAlignment = Alignment.End)
-                        } else {
-                            MessageBubble(text = message.content, horizontalAlignment = Alignment.Start)
-                        }
-                    }*/
-                    items(chatState.success){
-                        AiChatMessage(message = it.message.content)
+                    items(chatState.messageList){
+                        AIChatMessage(message = it.message.content)
                     }
                 }
-
+            }
+            BottomContainer(){
+                viewModel.sendMessage(it)
             }
         }
     }
