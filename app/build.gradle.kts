@@ -5,6 +5,9 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+//    alias(libs.plugins.google.gms.google.services)
+
+
 }
 
 android {
@@ -56,7 +59,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    externalNativeBuild {
+   externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
             version = "3.22.1"
@@ -88,6 +91,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
+//    implementation(libs.firebase.auth)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
@@ -105,6 +109,9 @@ dependencies {
     // Lottie
     implementation(libs.lottie.compose)
 
+    // Firebase
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore.ktx)
 
     // Swipe Refresh
     implementation(libs.accompanist.swiperefresh)
