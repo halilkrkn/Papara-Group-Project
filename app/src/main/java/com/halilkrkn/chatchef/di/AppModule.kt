@@ -1,6 +1,6 @@
 package com.halilkrkn.chatchef.di
 
-import com.halilkrkn.chatchef.data.remote.AuthInterceptor
+import com.halilkrkn.chatchef.core.interceptor.ApiInterceptor
 import com.halilkrkn.chatchef.data.remote.ChatChefApi
 import com.halilkrkn.chatchef.data.repository.ChatChefRepository
 import com.halilkrkn.chatchef.data.repository.ChatChefRepositoryImpl
@@ -20,7 +20,7 @@ object AppModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor())
+            .addInterceptor(ApiInterceptor())
             .build()
     }
 
@@ -38,6 +38,12 @@ object AppModule {
     @Singleton
     fun provideOpenAIApi(retrofit: Retrofit): ChatChefApi {
         return retrofit.create(ChatChefApi::class.java)
+    }
+    
+    @Provides
+    @Singleton
+    fun provideOpenAIRepository(openAIApi: ChatChefApi): ChatChefRepository {
+        return ChatChefRepositoryImpl(openAIApi)
     }
     /*
     @Provides
