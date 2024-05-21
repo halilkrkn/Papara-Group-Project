@@ -1,12 +1,16 @@
 package com.halilkrkn.chatchef.di
 
+import android.content.Context
+import androidx.room.Room
 import com.halilkrkn.chatchef.core.interceptor.ApiInterceptor
+import com.halilkrkn.chatchef.data.local.db.ChatChefDatabase
 import com.halilkrkn.chatchef.data.remote.ChatChefApi
 import com.halilkrkn.chatchef.data.repository.ChatChefRepository
 import com.halilkrkn.chatchef.data.repository.ChatChefRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -39,16 +43,16 @@ object AppModule {
     fun provideOpenAIApi(retrofit: Retrofit): ChatChefApi {
         return retrofit.create(ChatChefApi::class.java)
     }
-    
+
     @Provides
     @Singleton
-    fun provideOpenAIRepository(openAIApi: ChatChefApi): ChatChefRepository {
-        return ChatChefRepositoryImpl(openAIApi)
+    fun provideOpenAIRepository(
+        openAIApi: ChatChefApi,
+        chatChefDatabase: ChatChefDatabase
+        ): ChatChefRepository {
+        return ChatChefRepositoryImpl(
+            openAIApi,
+            chatChefDatabase
+        )
     }
-    /*
-    @Provides
-    @Singleton
-    fun provideOpenAIRepository(openAIApi: ChatChefApi): ChatChefRepository {
-        return ChatChefRepositoryImpl(ChatChefApi)
-    }*/
 }
