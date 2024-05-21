@@ -34,10 +34,9 @@ fun SetupAuthGraph(
 
             }
         }
+
         composable(route = Graph.BOTTOMBAR){
             MainScreen()
         }
-
     }
-
 }

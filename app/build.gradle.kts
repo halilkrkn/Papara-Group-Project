@@ -5,6 +5,8 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    id ("com.google.devtools.ksp")
+
 //    alias(libs.plugins.google.gms.google.services)
 
 
@@ -42,11 +44,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -117,9 +119,12 @@ dependencies {
     implementation(libs.accompanist.swiperefresh)
 
     // Room
-//    implementation("androidx.room:room-ktx:2.6.1")
-//    kapt("androidx.room:room-compiler:2.6.1")
-//    implementation("androidx.room:room-paging:2.6.1")
+    implementation(libs.androidx.room.ktx)
+//    kapt(libs.androidx.room.compiler)
+    ksp("androidx.room:room-compiler:2.6.1")
+
+    implementation (libs.androidx.room.runtime)
+
 
 
     implementation(libs.androidx.material.icons.extended)

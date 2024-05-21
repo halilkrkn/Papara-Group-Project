@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.halilkrkn.chatchef.navigation.util.AuthScreen
 import com.halilkrkn.chatchef.navigation.util.BottomBarNavigationScreen
+import com.halilkrkn.chatchef.navigation.util.Graph
 import com.halilkrkn.chatchef.presentation.ChatGptScreen.ChatGptScreen
 import com.halilkrkn.chatchef.presentation.FavoriteScreen.FavoriteScreen
 import com.halilkrkn.chatchef.presentation.LoginPage.LoginScreen
@@ -21,6 +22,7 @@ fun SetupBottomBarNavGraph(
     NavHost(
         navController = navController,
         startDestination = BottomBarNavigationScreen.ChatGptBottomBarNavigation.route,
+        route = Graph.BOTTOMBAR,
         modifier = modifier
     ) {
 
@@ -32,7 +34,9 @@ fun SetupBottomBarNavGraph(
             FavoriteScreen()
         }
 
-
+        composable(route = AuthScreen.Login.route){
+            LoginScreen(navController = navController)
+        }
     }
 }
 
