@@ -24,9 +24,7 @@ fun SetupAuthGraph(
     ){
 
         composable(route = AuthScreen.Login.route){
-            LoginScreen(navController = navController) {
-
-            }
+            LoginScreen(navController = navController)
         }
 
         composable(route = AuthScreen.ForgotPasswordScreen.route){

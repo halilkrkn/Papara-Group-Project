@@ -1,5 +1,7 @@
 package com.halilkrkn.chatchef.presentation.LoginPage
 
+import AuthViewModel
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,19 +11,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.halilkrkn.chatchef.R
 import com.halilkrkn.chatchef.navigation.util.AuthScreen
+import com.halilkrkn.chatchef.navigation.util.Graph
 import com.halilkrkn.chatchef.presentation.components.ButtonComponent
 import com.halilkrkn.chatchef.presentation.components.ClickableLoginTextComponent
 import com.halilkrkn.chatchef.presentation.components.DividerTextComponent
@@ -31,10 +38,33 @@ import com.halilkrkn.chatchef.presentation.components.PasswordFieldComponent
 import com.halilkrkn.chatchef.presentation.components.UnderLinedTextComponent
 
 @Composable
-fun LoginScreen(navController: NavHostController, onLoginClick: () -> Unit = {}, onSignUpClick: () -> Unit = {}) {
-
+fun LoginScreen(
+    navController: NavHostController,
+    onLoginClick: () -> Unit = {},
+    onSignUpClick: () -> Unit = {},
+    viewModel: AuthViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
     var email by remember {mutableStateOf("")}
     var password by remember {mutableStateOf("")}
+    val context = LocalContext.current
+
+    LaunchedEffect(uiState.error){
+        uiState.error?.let { errorMessage ->
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    LaunchedEffect(uiState.user){
+        uiState.user?.let {
+            navController.navigate(Graph.BOTTOMBAR) {
+                popUpTo(Graph.BOTTOMBAR) {
+                    inclusive = true
+                }
+            }
+        }
+    }
+
 
     Scaffold(
         modifier = Modifier.padding(18.dp)){
@@ -72,8 +102,7 @@ fun LoginScreen(navController: NavHostController, onLoginClick: () -> Unit = {},
             Spacer(modifier = Modifier.height(50.dp))
 
             ButtonComponent(value = "Login", onClick = {
-                onLoginClick()
-                navController.navigate("BottomBar")
+                viewModel.signIn(email,password)
             })
             Spacer(modifier = Modifier.height(10.dp))
 

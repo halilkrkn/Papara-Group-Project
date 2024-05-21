@@ -1,5 +1,6 @@
 package com.halilkrkn.chatchef.presentation.ChatGptScreen
 
+import AuthViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,14 +14,20 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.halilkrkn.chatchef.navigation.util.AuthScreen
+import com.halilkrkn.chatchef.presentation.LoginPage.viewModel.AuthUiState
 import com.halilkrkn.chatchef.presentation.components.AiChatMessage
 import com.halilkrkn.chatchef.presentation.components.BottomContainer
 import com.halilkrkn.chatchef.presentation.components.CustomTopAppBar
@@ -31,12 +38,27 @@ import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 fun ChatGptScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
+    viewModel: AuthViewModel = viewModel()
 ) {
+
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(uiState.user) {
+        navController.navigate(AuthScreen.Login.route){
+            popUpTo(AuthScreen.Login.route){
+                inclusive = true
+            }
+        }
+    }
+
     Scaffold(
         containerColor = MainBackgroundColor,
         topBar = {
             CustomTopAppBar(
-                onBackClick = { /*TODO*/ },
+                onBackClick = {
+                    viewModel.signOut()
+
+                              },
                 notificationClick = { /*TODO*/ }
             )
         }
