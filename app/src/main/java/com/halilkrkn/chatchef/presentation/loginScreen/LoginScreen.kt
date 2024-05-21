@@ -1,14 +1,11 @@
-package com.halilkrkn.chatchef.presentation.LoginPage
+package com.halilkrkn.chatchef.presentation.loginScreen
 
 import AuthViewModel
-import android.util.Log
 import android.widget.Toast
-import androidx.collection.emptyLongSet
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -65,10 +62,11 @@ fun LoginScreen(
 
     LaunchedEffect(uiState.user) {
         uiState.user?.let {
+
             navController.navigate(Graph.BOTTOMBAR) {
-                popUpTo(Graph.BOTTOMBAR) {
-                    inclusive = true
-                }
+//                popUpTo(Graph.BOTTOMBAR) {
+//                    inclusive = true
+//                }
             }
         }
     }
@@ -76,9 +74,9 @@ fun LoginScreen(
     LaunchedEffect(loggingState.transaction) {
         if (loggingState.transaction) {
             navController.navigate(Graph.BOTTOMBAR) {
-                popUpTo(Graph.BOTTOMBAR) {
-                    inclusive = true
-                }
+//                popUpTo(Graph.BOTTOMBAR) {
+//                    inclusive = true
+//                }
             }
         }
     }
@@ -117,7 +115,7 @@ fun LoginScreen(
                 UnderLinedTextComponent(value = "Forgot your password?", onClick = {
                     navController.navigate(AuthScreen.ForgotPasswordScreen.route)
                 })
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 ButtonComponent(value = "Login", onClick = {
                     viewModel.signIn(email, password)
                 })

@@ -7,10 +7,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.halilkrkn.chatchef.navigation.util.AuthScreen
 import com.halilkrkn.chatchef.navigation.util.Graph
-import com.halilkrkn.chatchef.presentation.LoginPage.LoginScreen
-import com.halilkrkn.chatchef.presentation.LoginPage.SignUpScreen
+import com.halilkrkn.chatchef.presentation.loginScreen.LoginScreen
+import com.halilkrkn.chatchef.presentation.loginScreen.SignUpScreen
 import com.halilkrkn.chatchef.presentation.MainScreen
-import com.halilkrkn.chatchef.presentation.LoginPage.ForgotPasswordScreen
+import com.halilkrkn.chatchef.presentation.loginScreen.ForgotPasswordScreen
 
 @Composable
 fun SetupAuthGraph(

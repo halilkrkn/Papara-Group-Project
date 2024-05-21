@@ -1,4 +1,4 @@
-package com.halilkrkn.chatchef.presentation.LoginPage.viewModel
+package com.halilkrkn.chatchef.presentation.loginScreen.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

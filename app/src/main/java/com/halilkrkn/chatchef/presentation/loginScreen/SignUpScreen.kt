@@ -1,8 +1,7 @@
-package com.halilkrkn.chatchef.presentation.LoginPage
+package com.halilkrkn.chatchef.presentation.loginScreen
 
 import AuthViewModel
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,8 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -35,7 +32,6 @@ import com.halilkrkn.chatchef.presentation.components.TextFieldComponent
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.halilkrkn.chatchef.presentation.components.Loader
 import com.halilkrkn.chatchef.presentation.components.PasswordFieldComponent
-import com.halilkrkn.chatchef.ui.theme.LoadingBackgroundColor
 
 @Composable
 fun SignUpScreen(

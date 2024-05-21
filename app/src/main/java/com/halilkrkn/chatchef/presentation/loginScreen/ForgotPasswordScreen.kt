@@ -1,4 +1,4 @@
-package com.halilkrkn.chatchef.presentation.LoginPage
+package com.halilkrkn.chatchef.presentation.loginScreen
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.halilkrkn.chatchef.presentation.LoginPage.viewModel.ForgotPasswordViewModel
+import com.halilkrkn.chatchef.presentation.loginScreen.viewModel.ForgotPasswordViewModel
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -81,7 +81,7 @@ fun ForgotPasswordScreen(navController: NavHostController, viewModel: ForgotPass
 
                 Spacer(modifier = Modifier.height(30.dp))
 
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
                 ButtonComponent(value = "Reset Password", onClick = {
                     viewModel.sendPasswordResetEmail(email)

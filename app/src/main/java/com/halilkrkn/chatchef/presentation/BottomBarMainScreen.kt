@@ -46,18 +46,24 @@ fun BottomBar(navController: NavHostController) {
         BottomBarNavigationScreen.FavoriteBottomBarNavigation,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
+    val currentDestination = navBackStackEntry?.destination?.route
+    val isBottomBarVisible = currentDestination in screens.map { bottomBarScreen ->
+        bottomBarScreen.route
+    }
 
-    NavigationBar(
-        containerColor = Color.White,
-        contentColor = Color.Black,
-    ) {
-        screens.forEach { screen ->
-            AddItem(
-                screen = screen,
-                currentDestination = currentDestination,
-                navController = navController
-            )
+    if (isBottomBarVisible) {
+
+        NavigationBar(
+            containerColor = Color.White,
+            contentColor = Color.Black,
+        ) {
+            screens.forEach { screen ->
+                AddItem(
+                    screen = screen,
+                    currentDestination = currentDestination,
+                    navController = navController
+                )
+            }
         }
     }
 }
@@ -66,7 +72,7 @@ fun BottomBar(navController: NavHostController) {
 @Composable
 fun RowScope.AddItem(
     screen: BottomBarNavigationScreen,
-    currentDestination: NavDestination?,
+    currentDestination: String?,
     navController: NavHostController,
 ) {
     NavigationBarItem(
@@ -83,9 +89,7 @@ fun RowScope.AddItem(
             )
         },
 
-        selected = currentDestination?.hierarchy?.any { navDestination ->
-            navDestination.route == screen.route
-        } == true,
+        selected = currentDestination == screen.route,
 
         onClick = {
             navController.navigate(screen.route) {
