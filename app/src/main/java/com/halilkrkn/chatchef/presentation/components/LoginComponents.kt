@@ -2,6 +2,7 @@ package com.halilkrkn.chatchef.presentation.components
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -17,7 +18,10 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -27,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,6 +49,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
@@ -81,28 +87,27 @@ fun HeadingTextComponent(value:String){
 }
 
 @Composable
-fun Loader(resId:Int){
+fun Loader(resId:Int, height:Dp = 200.dp){
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(resId))
     LottieAnimation(
         composition = composition,
         iterations = LottieConstants.IterateForever,
-        modifier = Modifier.height(200.dp)
+        modifier = Modifier.height(height)
 
     )
 }
 
 @Composable
-fun TextFieldComponent(labelValue:String, painterResource : Painter){
-
-    var textValue = remember { mutableStateOf("") }
+fun TextFieldComponent(stateValue: String, label:String,onValueChange: (String) -> Unit, painterResource: Painter) {
+    var textValue by remember { mutableStateOf(stateValue) }
 
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp)),
-        label = { Text(text = labelValue) },
-        value = textValue.value,
-        colors =  OutlinedTextFieldDefaults.colors(
+        label = { Text(text = label) },
+        value = textValue,
+        colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color.LightGray,
             unfocusedBorderColor = Color.Gray,
             focusedLabelColor = Color.Gray,
@@ -111,17 +116,19 @@ fun TextFieldComponent(labelValue:String, painterResource : Painter){
             unfocusedContainerColor = Color.White
         ),
         onValueChange = {
-            textValue.value = it
+            textValue = it
+            onValueChange(it)
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         leadingIcon = {
             Icon(painter = painterResource, contentDescription = "")
-        })
-
+        }
+    )
 }
 
+
 @Composable
-fun PasswordFieldComponent(labelValue:String, painterResource : Painter){
+fun PasswordFieldComponent(stateValue:String,label: String,onValueChange: (String) -> Unit , painterResource : Painter){
 
     var password = remember { mutableStateOf("") }
     val passwordVisibility = remember { mutableStateOf(false) }
@@ -130,7 +137,7 @@ fun PasswordFieldComponent(labelValue:String, painterResource : Painter){
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp)),
-        label = { Text(text = labelValue) },
+        label = { Text(text = label) },
         value = password.value,
         colors =  OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Color.LightGray,
@@ -142,6 +149,7 @@ fun PasswordFieldComponent(labelValue:String, painterResource : Painter){
         ),
         onValueChange = {
             password.value = it
+            onValueChange(it)
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         leadingIcon = {
@@ -316,21 +324,26 @@ fun ClickableLoginTextComponent(tryToLogin: Boolean = true, onTextSelected: (Str
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UnderLinedTextComponent(value:String){
-    Text(
-        text = value,
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(min = 40.dp),
-        style = TextStyle(
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Normal,
-            fontStyle = FontStyle.Normal),
-        color = Color.Gray,
-        textAlign = TextAlign.Center,
-        textDecoration = TextDecoration.Underline
-    )
+fun UnderLinedTextComponent(value:String,onClick: () -> Unit){
+    Card (colors = CardDefaults.cardColors(
+     containerColor = Color.Transparent
+    ),onClick = {
+        onClick()
+    }){
+        Text(
+            text = value,
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Normal,
+                fontStyle = FontStyle.Normal),
+            color = Color.Gray,
+            textAlign = TextAlign.Center,
+            textDecoration = TextDecoration.Underline
+        )
+    }
+
 }
 
 
