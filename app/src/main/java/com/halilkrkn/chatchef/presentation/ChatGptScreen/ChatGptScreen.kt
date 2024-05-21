@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.halilkrkn.chatchef.navigation.util.AuthScreen
 import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptViewModel
 import com.halilkrkn.chatchef.presentation.components.AIChatMessage
 import com.halilkrkn.chatchef.presentation.components.BottomContainer
-import com.halilkrkn.chatchef.presentation.components.AiChatMessage
 import com.halilkrkn.chatchef.presentation.components.CustomTopAppBar
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 
@@ -35,7 +35,7 @@ import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 fun ChatGptScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: ChatGptViewModel = hiltViewModel()
+    viewModel: ChatGptViewModel = hiltViewModel(),
 ) {
     val chatState by viewModel.chatState.collectAsState()
 
@@ -43,7 +43,7 @@ fun ChatGptScreen(
         containerColor = MainBackgroundColor,
         topBar = {
             CustomTopAppBar(
-                onBackClick = { navController.popBackStack() },
+                onBackClick = { navController.navigate(AuthScreen.Login.route) },
                 notificationClick = { /*TODO*/ }
             )
         }
@@ -71,30 +71,27 @@ fun ChatGptScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
 
-            if(chatState.error.isNotBlank()){
+            if (chatState.error.isNotBlank()) {
                 Text(text = chatState.error)
-            }
-            else if (chatState.messageList.isNotEmpty()){
+            } else if (chatState.messageList.isNotEmpty()) {
 
-            if (chatState.isLoading) {
-                //CircularProgressIndicator()
-            }
-            else if(chatState.error.isNotBlank()){
-                Text(text = chatState.error)
-            }
-            else if (chatState.success.isNotEmpty()){
+                if (chatState.isLoading) {
+                    //CircularProgressIndicator()
+                } else if (chatState.error.isNotBlank()) {
+                    Text(text = chatState.error)
+                } else if (chatState.messageList.isNotEmpty()) {
 
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(16.dp),
-                    reverseLayout = true
-                ) {
+                    LazyColumn(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(16.dp),
+                        reverseLayout = true
+                    ) {
 
-                    items(chatState.messageList){
-                        AIChatMessage(message = it.message.content)
+                        items(chatState.messageList) { messageResponse ->
+                            AIChatMessage(message = messageResponse.message)
 
-                    /*
+                            /*
                     items(chatState.success)) { message ->
                         if (message.isUser) {
                             MessageBubble(text = message.content, horizontalAlignment = Alignment.End)
@@ -102,16 +99,17 @@ fun ChatGptScreen(
                             MessageBubble(text = message.content, horizontalAlignment = Alignment.Start)
                         }
                     }*/
-                    items(chatState.success){
-                        AiChatMessage(message = it.message.content)
+                        }
+//                        items(chatState.messageList) {messageResponse ->
+//                            AIChatMessage(message = messageResponse.message)
+//
+//                        }
+                    }
 
+                    BottomContainer() {
+                        viewModel.sendMessage(it)
                     }
                 }
-
-            }
-
-            BottomContainer(){
-                viewModel.sendMessage(it)
             }
         }
     }
