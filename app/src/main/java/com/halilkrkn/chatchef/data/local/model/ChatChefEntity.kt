@@ -8,7 +8,8 @@ data class ChatChefEntity(
     @PrimaryKey(autoGenerate = true)
     val id : Int = 0,
 //    val userId: String,
-    val role: String?,
-    val content:String?,
-    val timestamp: Long?
+    val isFavorite: Boolean,
+    val role: String,
+    val content:String,
+    val timestamp: Long
 )
