@@ -1,7 +1,9 @@
 package com.halilkrkn.chatchef.presentation.LoginPage
 
 import AuthViewModel
+import android.util.Log
 import android.widget.Toast
+import androidx.collection.emptyLongSet
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -45,17 +47,23 @@ fun LoginScreen(
     viewModel: AuthViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    var email by remember {mutableStateOf("")}
-    var password by remember {mutableStateOf("")}
+    val loggingState by viewModel.loggingState.collectAsState()
+
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    LaunchedEffect(uiState.error){
+    LaunchedEffect(true) {
+        viewModel.isLoggedIn()
+    }
+
+    LaunchedEffect(uiState.error) {
         uiState.error?.let { errorMessage ->
             Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
 
-    LaunchedEffect(uiState.user){
+    LaunchedEffect(uiState.user) {
         uiState.user?.let {
             navController.navigate(Graph.BOTTOMBAR) {
                 popUpTo(Graph.BOTTOMBAR) {
@@ -65,61 +73,68 @@ fun LoginScreen(
         }
     }
 
+    LaunchedEffect(loggingState.transaction) {
+        if (loggingState.transaction) {
+            navController.navigate(Graph.BOTTOMBAR) {
+                popUpTo(Graph.BOTTOMBAR) {
+                    inclusive = true
+                }
+            }
+        }
+    }
 
-    Scaffold(
-        modifier = Modifier.padding(18.dp)){
+    if (uiState.isLoading || loggingState.isLoading) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
-
-            Loader(R.raw.login_anim, height = 250.dp)
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            TextFieldComponent(email, onValueChange = {
-                updatedEmail ->
-                email = updatedEmail
-            }, label = "Email", painterResource =  painterResource(id = R.drawable.mail_icon))
-
-            PasswordFieldComponent(password, label = "Password", onValueChange = {
-                    updatedPassword ->
-                password = updatedPassword
-            }, painterResource(id = R.drawable.lock_icon))
-
-
-
-
-            UnderLinedTextComponent(value = "Forgot your password?", onClick = {
-                navController.navigate(AuthScreen.ForgotPasswordScreen.route)
-            })
-
-
-
-            Spacer(modifier = Modifier.height(50.dp))
-
-            ButtonComponent(value = "Login", onClick = {
-                viewModel.signIn(email,password)
-            })
-            Spacer(modifier = Modifier.height(10.dp))
-
-            DividerTextComponent()
-            Spacer(modifier = Modifier.height(15.dp))
-            ClickableLoginTextComponent(tryToLogin = false, onTextSelected = {
-                onSignUpClick()
-                navController.navigate(AuthScreen.Register.route)
-            })
-
+            Loader(resId = R.raw.loading_anim)
+        }
+    } else {
+        Scaffold(modifier = Modifier.padding(18.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Loader(R.raw.login_anim, height = 250.dp)
+                Spacer(modifier = Modifier.height(10.dp))
+                TextFieldComponent(
+                    email,
+                    onValueChange = { updatedEmail -> email = updatedEmail },
+                    label = "Email",
+                    painterResource = painterResource(id = R.drawable.mail_icon)
+                )
+                PasswordFieldComponent(
+                    password,
+                    label = "Password",
+                    onValueChange = { updatedPassword -> password = updatedPassword },
+                    painterResource(id = R.drawable.lock_icon)
+                )
+                UnderLinedTextComponent(value = "Forgot your password?", onClick = {
+                    navController.navigate(AuthScreen.ForgotPasswordScreen.route)
+                })
+                Spacer(modifier = Modifier.height(50.dp))
+                ButtonComponent(value = "Login", onClick = {
+                    viewModel.signIn(email, password)
+                })
+                Spacer(modifier = Modifier.height(10.dp))
+                DividerTextComponent()
+                Spacer(modifier = Modifier.height(15.dp))
+                ClickableLoginTextComponent(tryToLogin = false, onTextSelected = {
+                    onSignUpClick()
+                    navController.navigate(AuthScreen.Register.route)
+                })
+            }
         }
     }
 }
 
-
-@Preview(showBackground = true,showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen(navController = rememberNavController(),{},{})
+    LoginScreen(navController = rememberNavController(), {}, {})
 }

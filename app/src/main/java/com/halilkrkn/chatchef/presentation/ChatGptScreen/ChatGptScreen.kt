@@ -1,6 +1,7 @@
 package com.halilkrkn.chatchef.presentation.ChatGptScreen
 
 import AuthViewModel
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,15 +42,6 @@ fun ChatGptScreen(
     viewModel: AuthViewModel = viewModel()
 ) {
 
-    val uiState by viewModel.uiState.collectAsState()
-
-    LaunchedEffect(uiState.user) {
-        navController.navigate(AuthScreen.Login.route){
-            popUpTo(AuthScreen.Login.route){
-                inclusive = true
-            }
-        }
-    }
 
     Scaffold(
         containerColor = MainBackgroundColor,

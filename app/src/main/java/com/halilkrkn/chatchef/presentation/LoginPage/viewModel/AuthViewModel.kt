@@ -1,3 +1,4 @@
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
@@ -12,6 +13,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
+
+
 data class AuthUiState(
     val isLoading: Boolean = false,
     val user: FirebaseUser? = null,
@@ -20,6 +24,11 @@ data class AuthUiState(
     val lastName: String? = null
 )
 
+data class LoggingState(
+    val transaction: Boolean = false,
+    val isLoading: Boolean = false,
+    val error: String? = null
+)
 
 class AuthViewModel  : ViewModel() {
 
@@ -29,6 +38,9 @@ class AuthViewModel  : ViewModel() {
     private val _uiState = MutableStateFlow(AuthUiState())
     val uiState: StateFlow<AuthUiState> = _uiState
 
+    private val _loggingState = MutableStateFlow(LoggingState())
+    val loggingState: StateFlow<LoggingState> = _loggingState
+
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
@@ -36,13 +48,16 @@ class AuthViewModel  : ViewModel() {
                 when (result) {
                     is FirebaseResult.Success -> {
                         result.data?.let { user ->
-                            _uiState.value = _uiState.value.copy(user = user,isLoading = false)
+                            _uiState.value = _uiState.value.copy(user = user, isLoading = false)
                             loadUserData(user.uid)
                         }
                     }
+
                     is FirebaseResult.Error -> {
-                        _uiState.value = _uiState.value.copy(error = result.message, isLoading = false)
+                        _uiState.value =
+                            _uiState.value.copy(error = result.message, isLoading = false)
                     }
+
                     FirebaseResult.Loading -> {
                         _uiState.value = _uiState.value.copy(isLoading = true)
                     }
@@ -54,26 +69,30 @@ class AuthViewModel  : ViewModel() {
     fun signUp(email: String, password: String, firstName: String, lastName: String) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
-            authRepository.signUpWithEmailAndPassword(email, password, firstName, lastName).collect { result ->
-                when (result) {
-                    is FirebaseResult.Success -> {
-                        result.data?.let { user ->
-                            _uiState.value = _uiState.value.copy(
-                                user = user,
-                                firstName = firstName,
-                                lastName = lastName,
-                                isLoading = false
-                            )
+            authRepository.signUpWithEmailAndPassword(email, password, firstName, lastName)
+                .collect { result ->
+                    when (result) {
+                        is FirebaseResult.Success -> {
+                            result.data?.let { user ->
+                                _uiState.value = _uiState.value.copy(
+                                    user = user,
+                                    firstName = firstName,
+                                    lastName = lastName,
+                                    isLoading = false
+                                )
+                            }
+                        }
+
+                        is FirebaseResult.Error -> {
+                            _uiState.value =
+                                _uiState.value.copy(error = result.message, isLoading = false)
+                        }
+
+                        FirebaseResult.Loading -> {
+                            _uiState.value = _uiState.value.copy(isLoading = true)
                         }
                     }
-                    is FirebaseResult.Error -> {
-                        _uiState.value = _uiState.value.copy(error = result.message, isLoading = false)
-                    }
-                    FirebaseResult.Loading -> {
-                        _uiState.value = _uiState.value.copy(isLoading = true)
-                    }
                 }
-            }
         }
     }
 
@@ -83,21 +102,25 @@ class AuthViewModel  : ViewModel() {
             authRepository.signOut().collect { result ->
                 when (result) {
                     is FirebaseResult.Success -> {
-                        _uiState.value = _uiState.value.copy(user = null, firstName = null, lastName = null, isLoading = false)
+                        _uiState.value = _uiState.value.copy(
+                            user = null,
+                            firstName = null,
+                            lastName = null,
+                            isLoading = false
+                        )
                     }
+
                     is FirebaseResult.Error -> {
-                        _uiState.value = _uiState.value.copy(error = result.message, isLoading = false)
+                        _uiState.value =
+                            _uiState.value.copy(error = result.message, isLoading = false)
                     }
+
                     FirebaseResult.Loading -> {
                         _uiState.value = _uiState.value.copy(isLoading = true)
                     }
                 }
             }
         }
-    }
-
-    fun isLoggedIn(): Boolean {
-        return authRepository.isLoggedIn()
     }
 
     private fun loadUserData(userId: String) {
@@ -114,6 +137,33 @@ class AuthViewModel  : ViewModel() {
             }
         }
     }
+
+
+    fun isLoggedIn() {
+        viewModelScope.launch {
+            authRepository.isLoggedIn().collect { isLoggedIn ->
+                _loggingState.value = _loggingState.value.copy(isLoading = true)
+                when (isLoggedIn) {
+                    is FirebaseResult.Success -> {
+                        Log.d("AuthViewModel", "isLoggedIn: ${isLoggedIn.data}")
+                        _loggingState.value = _loggingState.value.copy(
+                            isLoading = false,
+                            transaction = isLoggedIn.data ?: false
+                        )
+                    }
+                    is FirebaseResult.Error -> {
+                        Log.e("AuthViewModel", "isLoggedIn error: ${isLoggedIn.message}")
+                        _loggingState.value = _loggingState.value.copy(
+                            isLoading = false,
+                            error = isLoggedIn.message
+                        )
+                    }
+                    FirebaseResult.Loading -> {
+                        Log.d("AuthViewModel", "isLoggedIn loading")
+                        _loggingState.value = _loggingState.value.copy(isLoading = true)
+                    }
+                }
+            }
+        }
+    }
 }
-
-

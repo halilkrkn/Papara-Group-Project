@@ -2,6 +2,7 @@ package com.halilkrkn.chatchef.presentation.LoginPage
 
 import AuthViewModel
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -34,6 +35,7 @@ import com.halilkrkn.chatchef.presentation.components.TextFieldComponent
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.halilkrkn.chatchef.presentation.components.Loader
 import com.halilkrkn.chatchef.presentation.components.PasswordFieldComponent
+import com.halilkrkn.chatchef.ui.theme.LoadingBackgroundColor
 
 @Composable
 fun SignUpScreen(
@@ -75,7 +77,8 @@ fun SignUpScreen(
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
+
             ) {
                 Loader(resId = R.raw.loading_anim)
             }

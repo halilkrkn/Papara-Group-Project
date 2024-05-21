@@ -59,8 +59,19 @@ class AuthServiceImpl @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
 
-    override fun isLoggedIn(): Boolean {
-        return firebaseAuth.currentUser != null
+    override fun isLoggedIn(): Flow<FirebaseResult<Boolean>> = flow {
+        emit(FirebaseResult.Loading)
+        try {
+            val user = firebaseAuth.currentUser
+            if (user != null) {
+                emit(FirebaseResult.Success(true))}
+            else {
+                emit(FirebaseResult.Success(false))
+            }
+        }
+        catch (e:Exception){
+            emit(FirebaseResult.Error(e.message ?: "Something went wrong"))
+        }
     }
 
     override fun sendPasswordResetEmail(email: String): Flow<FirebaseResult<Boolean>> = flow {
