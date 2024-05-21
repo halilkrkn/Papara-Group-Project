@@ -32,15 +32,15 @@ class ChatGptViewModel @Inject constructor(private val chatChefRepository: ChatC
             chatChefRepository.sendMessageOpenAi(messageList).collect{ result->
                 when (result) {
                     is ApiResult.Loading -> {
-                        _chatState.value = ChatGptState(isLoading = true, messageList = list)
+                        _chatState.value = chatState.value.copy(isLoading = true)
                     }
                     is ApiResult.Success -> {
                         val response = result.data.choices
                         list.add(response[0])
-                        _chatState.value = ChatGptState(messageList = list, isLoading = false)
+                        _chatState.value = chatState.value.copy(messageList = list, isLoading = false)
                     }
                     is ApiResult.Error -> {
-                        _chatState.value = ChatGptState(error = result.message, isLoading = false)
+                        _chatState.value = chatState.value.copy(error = result.message, isLoading = false)
                     }
                 }
             }
