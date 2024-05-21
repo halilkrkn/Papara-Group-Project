@@ -6,6 +6,7 @@ import com.halilkrkn.chatchef.data.firebase.FirebaseResult
 import com.halilkrkn.chatchef.data.firebase.implementation.FirestoreServiceImpl
 import com.halilkrkn.chatchef.data.firebase.service.AuthService
 import com.halilkrkn.chatchef.data.firebase.service.FirestoreService
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,11 +20,11 @@ data class AuthUiState(
     val lastName: String? = null
 )
 
-class AuthViewModel  @Inject constructor(
-    private val authRepository: AuthService,
-    private val firestoreService: FirestoreService
-) : ViewModel() {
 
+class AuthViewModel  : ViewModel() {
+
+    private val authRepository = AuthServiceImpl()
+    private val firestoreService = FirestoreServiceImpl()
 
     private val _uiState = MutableStateFlow(AuthUiState())
     val uiState: StateFlow<AuthUiState> = _uiState
@@ -35,7 +36,7 @@ class AuthViewModel  @Inject constructor(
                 when (result) {
                     is FirebaseResult.Success -> {
                         result.data?.let { user ->
-                            _uiState.value = _uiState.value.copy(user = user)
+                            _uiState.value = _uiState.value.copy(user = user,isLoading = false)
                             loadUserData(user.uid)
                         }
                     }
