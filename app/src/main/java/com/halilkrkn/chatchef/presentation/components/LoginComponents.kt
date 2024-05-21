@@ -176,61 +176,7 @@ fun PasswordFieldComponent(stateValue:String,label: String,onValueChange: (Strin
     )
 }
 
-/*
-@Composable
-fun CheckBoxComponent(value:String,onTextSelected : (String) -> Unit) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .heightIn(56.dp),
-        verticalAlignment = Alignment.CenterVertically)  {
 
-        val checkedState = remember { mutableStateOf(false) }
-        Checkbox(checked = checkedState.value,
-            onCheckedChange = {
-                checkedState.value = !checkedState.value
-            })
-
-        ClickableTextComponent(value = value,onTextSelected)
-    }
-}
-
-
-
-@Composable
-fun ClickableTextComponent(value:String,onTextSelected: (String) -> Unit) {
-
-    val initialText = "By continuing you accept our "
-    val privacyPolicyText = "Privacy Policy "
-    val andText = "and "
-    val termsAndConditionsText = "Term of Use"
-
-    val annotatedString = buildAnnotatedString {
-        append(initialText)
-        withStyle(style = SpanStyle(color = Color.Gray)) {
-            pushStringAnnotation(tag = privacyPolicyText, annotation = privacyPolicyText)
-            append(privacyPolicyText)
-        }
-        append(andText)
-        withStyle(style = SpanStyle(color = Color.Gray)) {
-            pushStringAnnotation(tag = termsAndConditionsText, annotation = termsAndConditionsText)
-            append(termsAndConditionsText)
-        }
-
-    }
-
-    ClickableText(text = annotatedString, onClick = {offset ->
-        annotatedString.getStringAnnotations(offset, offset)
-            .firstOrNull()?.also { span ->
-                Log.d("ClickableTextComponent", "{${span.item}}")
-                if((span.item == termsAndConditionsText) || (span.item == privacyPolicyText)){
-                    onTextSelected(span.item)
-                }
-            }
-
-
-    } )
-
-}*/
 
 @Composable
 fun ButtonComponent(value: String, onClick: () -> Unit) {
@@ -249,8 +195,9 @@ fun ButtonComponent(value: String, onClick: () -> Unit) {
                 .background(
                     brush = Brush.horizontalGradient(
                         listOf(
-                            Color(0xFFF95075),
-                            Color(0xFFBE6BE5)
+                            Color(0xFFd70f4b),
+                            Color(0xFFf50110),
+                            //Color(0xFFf07167),
                         )
                     ), shape = RoundedCornerShape(50.dp)
                 ),
@@ -311,7 +258,8 @@ fun ClickableLoginTextComponent(tryToLogin: Boolean = true, onTextSelected: (Str
             fontSize = 21.sp,
             fontWeight = FontWeight.Normal,
             fontStyle = FontStyle.Normal,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+
         ),
         text = annotatedString,
         onClick = { offset ->
