@@ -53,7 +53,7 @@ fun AiChatMessage(
                 bottomEnd = 15.dp,
                 bottomStart = 15.dp
             ),
-            colors = CardDefaults.cardColors(ColorButton1)
+            colors = CardDefaults.cardColors(colorResource(id = R.color.ai_chat_bubble))
         ) {
             Column(
                 modifier = modifier

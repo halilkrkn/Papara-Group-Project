@@ -61,11 +61,10 @@ fun LoginScreen(
 
     LaunchedEffect(uiState.user) {
         uiState.user?.let {
-
             navController.navigate(Graph.BOTTOMBAR) {
-//                popUpTo(Graph.BOTTOMBAR) {
-//                    inclusive = true
-//                }
+                popUpTo(Graph.BOTTOMBAR) {
+                    inclusive = true
+                }
             }
         }
     }
@@ -73,9 +72,9 @@ fun LoginScreen(
     LaunchedEffect(loggingState.transaction) {
         if (loggingState.transaction) {
             navController.navigate(Graph.BOTTOMBAR) {
-//                popUpTo(Graph.BOTTOMBAR) {
-//                    inclusive = true
-//                }
+                popUpTo(Graph.BOTTOMBAR) {
+                    inclusive = true
+                }
             }
         }
     }

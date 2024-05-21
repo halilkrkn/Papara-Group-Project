@@ -35,7 +35,9 @@ fun MainScreen() {
             BottomBar(navController = navController)
         }
     ) {
+
         SetupBottomBarNavGraph(navController = navController, modifier = Modifier.padding(it))
+
     }
 }
 

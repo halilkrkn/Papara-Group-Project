@@ -1,13 +1,11 @@
 package com.halilkrkn.chatchef.presentation.components
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,10 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.halilkrkn.chatchef.R
-import com.halilkrkn.chatchef.ui.theme.ButtonBackgroundColor
-import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
-import com.halilkrkn.chatchef.ui.theme.MessageBubbleColor
-import com.halilkrkn.chatchef.ui.theme.MessageChatBubbleColor
+import com.halilkrkn.chatchef.ui.theme.ColorButton
 
 @Composable
 fun CustomButton(modifier: Modifier, sendButtonClicked: () -> Unit) {
@@ -28,7 +23,7 @@ fun CustomButton(modifier: Modifier, sendButtonClicked: () -> Unit) {
             sendButtonClicked()
         },
         colors = ButtonDefaults.buttonColors(
-            containerColor = colorResource(id = R.color.top_app_bar_icon_fg),
+            containerColor = ColorButton,
             contentColor = colorResource(id = R.color.top_app_bar_icon_bg)
         ),
         shape = CircleShape,

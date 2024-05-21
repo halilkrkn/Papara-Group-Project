@@ -43,6 +43,7 @@ fun ChatGptScreen(
                 onBackClick = {
                     viewModel.signOut()
                     navController.navigate(AuthScreen.Login.route)
+
                 },
                 notificationClick = { /*TODO*/ }
             )

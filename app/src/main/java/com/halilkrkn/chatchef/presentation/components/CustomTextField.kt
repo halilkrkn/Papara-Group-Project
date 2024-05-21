@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,7 +35,7 @@ fun CustomTextField(modifier: Modifier, value: String, updatedText: (String) -> 
         modifier = modifier
             .height(54.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(Color.LightGray)
+            .background(colorResource(id = R.color.ai_chat_bubble))
     ) {
         TextFieldDefaults.DecorationBox(
             value = value,

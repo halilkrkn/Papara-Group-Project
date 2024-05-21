@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.halilkrkn.chatchef.R
+import com.halilkrkn.chatchef.ui.theme.ColorButton
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 
 /***
@@ -56,15 +57,16 @@ fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notif
                     .clip(RoundedCornerShape(16.dp))
                     .background(colorResource(id = R.color.top_app_bar_icon_bg))
                     .clickable {
-                        notificationClick()
+                        onBackClick()
                         /***
                         Notification Button Transactions
                          ***/
-                    }
+                    },
+
             ) {
                 Icon(
-                   imageVector = ImageVector.vectorResource(id = R.drawable.baseline_keyboard_arrow_right_24),
-                    tint = colorResource(id = R.color.top_app_bar_icon_fg),
+                   imageVector = ImageVector.vectorResource(id = R.drawable.logout),
+                    tint = ColorButton,
                     contentDescription = "Back",
                     modifier = Modifier.align(Alignment.Center),
 
