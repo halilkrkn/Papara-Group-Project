@@ -39,7 +39,6 @@ import com.halilkrkn.chatchef.presentation.components.UnderLinedTextComponent
 @Composable
 fun LoginScreen(
     navController: NavHostController,
-    onLoginClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {},
     viewModel: AuthViewModel = viewModel()
 ) {
@@ -102,14 +101,14 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(10.dp))
                 TextFieldComponent(
                     email,
-                    onValueChange = { updatedEmail -> email = updatedEmail },
+                    onValueChange = { updatedEmail -> email = updatedEmail.trim() },
                     label = "Email",
                     painterResource = painterResource(id = R.drawable.mail_icon)
                 )
                 PasswordFieldComponent(
                     password,
                     label = "Password",
-                    onValueChange = { updatedPassword -> password = updatedPassword },
+                    onValueChange = { updatedPassword -> password = updatedPassword.trim() },
                     painterResource(id = R.drawable.lock_icon)
                 )
                 UnderLinedTextComponent(value = "Forgot your password?", onClick = {
@@ -134,5 +133,5 @@ fun LoginScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen(navController = rememberNavController(), {}, {})
+    LoginScreen(navController = rememberNavController(), {})
 }

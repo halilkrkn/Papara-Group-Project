@@ -94,7 +94,7 @@ fun SignUpScreen(
                 TextFieldComponent(
                     stateValue = firstName,
                     onValueChange = { updatedFirstName ->
-                        firstName = updatedFirstName
+                        firstName = updatedFirstName.trim()
                     },
                     label = "First Name",
                     painterResource = painterResource(id = R.drawable.profile_icon)
@@ -103,7 +103,7 @@ fun SignUpScreen(
                 TextFieldComponent(
                     stateValue = lastName,
                     onValueChange = { updatedLastName ->
-                        lastName = updatedLastName
+                        lastName = updatedLastName.trim()
                     },
                     label = "Last Name",
                     painterResource = painterResource(id = R.drawable.profile_icon)
@@ -112,7 +112,7 @@ fun SignUpScreen(
                 TextFieldComponent(
                     stateValue = email,
                     onValueChange = { updatedEmail ->
-                        email = updatedEmail
+                        email = updatedEmail.trim()
                     },
                     label = "Email",
                     painterResource = painterResource(id = R.drawable.mail_icon)
@@ -121,7 +121,7 @@ fun SignUpScreen(
                 PasswordFieldComponent(
                     stateValue = password,
                     onValueChange = { updatedPassword ->
-                        password = updatedPassword
+                        password = updatedPassword.trim()
                     },
                     label = "Password",
                     painterResource = painterResource(id = R.drawable.lock_icon)
