@@ -10,7 +10,7 @@ import com.halilkrkn.chatchef.navigation.util.Graph
 import com.halilkrkn.chatchef.presentation.LoginPage.LoginScreen
 import com.halilkrkn.chatchef.presentation.LoginPage.SignUpScreen
 import com.halilkrkn.chatchef.presentation.MainScreen
-
+import com.halilkrkn.chatchef.presentation.LoginPage.ForgotPasswordScreen
 
 @Composable
 fun SetupAuthGraph(
@@ -29,10 +29,12 @@ fun SetupAuthGraph(
             }
         }
 
-        composable(route = AuthScreen.Register.route){
-            SignUpScreen(navController = navController) {
+        composable(route = AuthScreen.ForgotPasswordScreen.route){
+            ForgotPasswordScreen(navController = navController)
+        }
 
-            }
+        composable(route = AuthScreen.Register.route){
+            SignUpScreen(navController = navController)
         }
         composable(route = Graph.BOTTOMBAR){
             MainScreen()
