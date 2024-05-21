@@ -53,19 +53,7 @@ fun ChatGptScreen(
                 .fillMaxWidth()
                 .padding(innerPadding),
         ) {
-            Row(
-                modifier = Modifier
-                    .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "ChatGpt",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+
             Spacer(modifier = Modifier.height(8.dp))
             LazyColumn(
                 modifier = Modifier.weight(1f),
