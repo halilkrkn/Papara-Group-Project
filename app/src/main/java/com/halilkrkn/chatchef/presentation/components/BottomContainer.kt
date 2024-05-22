@@ -45,6 +45,7 @@ fun BottomContainer(
                 .weight(0.60f)
         ) {
             sendButtonClicked(value)
+            value = ""
         }
     }
 }

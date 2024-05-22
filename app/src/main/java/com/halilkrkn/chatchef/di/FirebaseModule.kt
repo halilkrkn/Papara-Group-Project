@@ -40,4 +40,5 @@ object FirebaseModule {
     fun provideFirestoreService(firebaseFirestore: FirebaseFirestore): FirestoreService {
         return FirestoreServiceImpl(firebaseFirestore)
     }
+
 }

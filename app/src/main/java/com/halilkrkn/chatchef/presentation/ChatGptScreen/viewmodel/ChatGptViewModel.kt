@@ -34,6 +34,7 @@ class ChatGptViewModel @Inject constructor(
         val message = Message(content = text, role = "user")
         messageList.add(message)
         list.add(MessageResponse(message = message))
+        println(list)
         _chatState.value = chatState.value.copy(messageList = list)
         viewModelScope.launch {
             chatChefRepository.sendMessageOpenAi(messageList).collect { result ->
@@ -43,10 +44,9 @@ class ChatGptViewModel @Inject constructor(
                     }
 
                     is ApiResult.Success -> {
-                        _chatState.value = chatState.value.copy(
-                            messageList = result.data.choices,
-                            isLoading = false
-                        )
+                        val response = result.data.choices
+                        list.add(response[0])
+                        _chatState.value = chatState.value.copy(messageList = list, isLoading = false)
                     }
 
                     is ApiResult.Error -> {
@@ -56,34 +56,6 @@ class ChatGptViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    init {
-        sendMessage(listOf(Message("Selam", "user")))
-    }
-
-    fun sendMessage(messages: List<Message>) {
-        viewModelScope.launch {
-            chatChefRepository.sendMessageOpenAi(messages).collect {
-                when (it) {
-                    is ApiResult.Loading -> {
-                        _chatState.value = chatState.value.copy(isLoading = true)
-
-                    }
-
-                    is ApiResult.Success -> {
-                        _chatState.value =
-                            chatState.value.copy(messageList = it.data.choices, isLoading = false)
-                    }
-
-                    is ApiResult.Error -> {
-                        _chatState.value =
-                            chatState.value.copy(error = it.message, isLoading = false)
-                    }
-                }
-            }
-        }
-    }
 
     // Database Operations
     fun insertMessage(message: ChatChefEntity) {

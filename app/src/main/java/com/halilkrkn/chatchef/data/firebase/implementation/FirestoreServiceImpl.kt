@@ -9,7 +9,6 @@ class FirestoreServiceImpl @Inject constructor(
     private val firestore: FirebaseFirestore
 ) : FirestoreService {
 
-
     override suspend fun saveUserData(userId: String, firstName: String, lastName: String) {
         val userMap = mapOf(
             "firstName" to firstName,

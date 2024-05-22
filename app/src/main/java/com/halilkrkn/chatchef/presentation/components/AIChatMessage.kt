@@ -25,6 +25,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -39,6 +40,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.halilkrkn.chatchef.data.mapper.toChatChefEntity
 import com.halilkrkn.chatchef.data.remote.dto.Message
 import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptViewModel
+import com.halilkrkn.chatchef.R
+import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptState
 import com.halilkrkn.chatchef.ui.theme.ColorButton1
 import com.halilkrkn.chatchef.ui.theme.TextPink
 
@@ -71,7 +74,7 @@ fun AIChatMessage(
                 bottomEnd = 15.dp,
                 bottomStart = 15.dp
             ),
-            colors = CardDefaults.cardColors(ColorButton1)
+            colors = CardDefaults.cardColors(colorResource(id = R.color.ai_chat_bubble))
         ) {
             Column(
                 modifier = modifier
@@ -81,15 +84,15 @@ fun AIChatMessage(
                 Row {
                     Text(
                         buildAnnotatedString {
-                            append(message?.content)
-                            withStyle(
+                            append(message)
+                            /*withStyle(
                                 style = SpanStyle(
                                     color = TextPink
                                 )
                             ) {
                                 append("Emmanuel")
                             }
-                            append(", I am ChatChef's AI. How can I help you?")
+                            append(", I am ChatChef's AI. How can I help you?")*/
                         },
                         fontWeight = fontWeight,
                         fontSize = fontSize,

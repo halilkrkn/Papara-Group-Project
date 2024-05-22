@@ -6,10 +6,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
     id ("com.google.devtools.ksp")
-
-//    alias(libs.plugins.google.gms.google.services)
-
-
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -93,6 +90,8 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
 //    implementation(libs.firebase.auth)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -112,8 +111,8 @@ dependencies {
     implementation(libs.lottie.compose)
 
     // Firebase
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore.ktx)
+//    implementation(libs.firebase.auth)
+//    implementation(libs.firebase.firestore.ktx)
 
     // Swipe Refresh
     implementation(libs.accompanist.swiperefresh)
