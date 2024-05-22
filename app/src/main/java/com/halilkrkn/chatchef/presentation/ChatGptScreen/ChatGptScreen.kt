@@ -36,8 +36,9 @@ import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptViewMo
 import com.halilkrkn.chatchef.presentation.components.AIChatMessage
 import com.halilkrkn.chatchef.presentation.components.BottomContainer
 import com.halilkrkn.chatchef.presentation.components.CustomCard
+import com.halilkrkn.chatchef.presentation.components.CustomSubTitleText
+import com.halilkrkn.chatchef.presentation.components.CustomTitleText
 import com.halilkrkn.chatchef.presentation.components.CustomTopAppBar
-import com.halilkrkn.chatchef.presentation.components.GradientText
 import com.halilkrkn.chatchef.presentation.components.LoadingComponents
 import com.halilkrkn.chatchef.presentation.components.UserChatMessage
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
@@ -102,7 +103,9 @@ fun ChatGptScreen(
                 }
             }
             if (chatState.messageList.isEmpty()) {
-                GradientText(text ="Selam ${name.value}")
+                CustomTitleText(text ="Selam ${name.value},")
+                Spacer(modifier = Modifier.height(8.dp))
+                CustomSubTitleText(text = "Bugün nasıl yardımcı olabilirim?")
                 Spacer(modifier = Modifier.height(250.dp))
                 LazyRow(
                     modifier = Modifier

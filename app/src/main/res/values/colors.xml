@@ -12,4 +12,8 @@
     <color name="ai_chat_bubble">#e6e6e9</color>
     <color name="bottom_chat">#e7ecef</color>
     <color name="loading_component">#66666e</color>
+    <color name="first_text_color">#4e82ee</color>
+    <color name="second_text_color">#be6a96</color>
+    <color name="third_text_color">#c4c7c5</color>
+
 </resources>
