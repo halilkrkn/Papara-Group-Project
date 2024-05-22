@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChatGptViewModel @Inject constructor(
-    private val chatChefRepository: ChatChefRepository
+    private val chatChefRepository: ChatChefRepository,
 ) : ViewModel() {
 
     private val _chatState = MutableStateFlow(ChatGptState())
@@ -37,25 +37,23 @@ class ChatGptViewModel @Inject constructor(
         println(list)
         _chatState.value = chatState.value.copy(messageList = list)
         viewModelScope.launch {
-            chatChefRepository.sendMessageOpenAi(messageList).collect { result ->
+            chatChefRepository.sendMessageOpenAi(messageList).collect{ result->
                 when (result) {
                     is ApiResult.Loading -> {
-                        _chatState.value = chatState.value.copy(isLoading = true)
+                        _chatState.value = ChatGptState(isLoading = true, messageList = list)
                     }
-
                     is ApiResult.Success -> {
                         val response = result.data.choices
                         list.add(response[0])
-                        _chatState.value = chatState.value.copy(messageList = list, isLoading = false)
+                        _chatState.value = ChatGptState(messageList = list, isLoading = false)
                     }
-
                     is ApiResult.Error -> {
-                        _chatState.value =
-                            chatState.value.copy(error = result.message, isLoading = false)
+                        _chatState.value = ChatGptState(error = result.message, isLoading = false)
                     }
                 }
             }
         }
+    }
 
     // Database Operations
     fun insertMessage(message: ChatChefEntity) {
@@ -65,7 +63,7 @@ class ChatGptViewModel @Inject constructor(
     }
 
     fun deleteMessage(message: ChatChefEntity) {
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             chatChefRepository.deleteMessage(message)
         }
     }

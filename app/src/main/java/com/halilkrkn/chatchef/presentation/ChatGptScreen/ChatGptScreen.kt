@@ -1,6 +1,5 @@
 package com.halilkrkn.chatchef.presentation.ChatGptScreen
 
-
 import com.halilkrkn.chatchef.presentation.loginScreen.viewModel.AuthViewModel
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -71,12 +70,12 @@ fun ChatGptScreen(
                     .weight(1f),
                 reverseLayout = true
             ) {
-                items(chatState.messageList.reversed()){
-                    if (it.message.isUser){
-                        UserChatMessage(text = it.message.content, horizontalAlignment = Alignment.End)
+                items(chatState.messageList.reversed()){ messageResponse ->
+                    if (messageResponse.message.isUser){
+                        UserChatMessage(text = messageResponse.message.content, horizontalAlignment = Alignment.End)
                     }else{
                         AIChatMessage(
-                            message = it.message.content
+                            message = messageResponse.message
                         )
                     }
                 }
