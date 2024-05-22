@@ -29,7 +29,7 @@ fun SetupBottomBarNavGraph(
         }
 
         composable(route = BottomBarNavigationScreen.FavoriteBottomBarNavigation.route){
-            FavoriteScreen(navController = navController)
+            FavoriteScreen()
         }
 
         composable(route = AuthScreen.Login.route){

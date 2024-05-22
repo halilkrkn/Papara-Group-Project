@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ChatChef</string>
     <string name="chat_place_holder">ChatChef</string>
+    <string name="favorite_item_deletion_dialog_text">Are you sure you want to delete?</string>
+    <string name="favorite_item_deletion_dialog_positive_button">Yes</string>
+    <string name="favorite_item_deletion_dialog_negative_button">No</string>
 </resources>
