@@ -1,4 +1,6 @@
 package com.halilkrkn.chatchef.presentation.components
+
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontFamily
@@ -20,9 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.halilkrkn.chatchef.R
-import com.halilkrkn.chatchef.ui.theme.ColorButton
-import com.halilkrkn.chatchef.ui.theme.MessageBubbleColor
+
 
 /*
 UserChatMessage(text = "message content", horizontalAlignment = Alignment.End)
@@ -32,9 +34,10 @@ UserChatMessage(text = "message content", horizontalAlignment = Alignment.End)
 fun UserChatMessage(
     modifier: Modifier = Modifier,
     text: String,
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start
+    horizontalAlignment: Alignment.Horizontal = Alignment.Start,
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -43,16 +46,25 @@ fun UserChatMessage(
         verticalArrangement = Arrangement.SpaceAround
     ) {
         Card(
-            shape = RoundedCornerShape(
-                topStart = 48f,
-                topEnd = 48f,
-                bottomStart = 48f,
-                bottomEnd = 0f
-            ),
             modifier = modifier
                 .padding(vertical = 4.dp)
-                .widthIn(max = screenWidth * 0.7f),
-            colors = CardDefaults.cardColors(ColorButton)
+                .widthIn(max = screenWidth * 0.7f)
+                .background(
+                    shape = RoundedCornerShape(
+                        topStart = 15.dp,
+                        topEnd = 15.dp,
+                        bottomStart = 15.dp,
+                        bottomEnd = 0.dp
+                    ),
+                    brush = Brush.horizontalGradient(
+                        listOf(
+                            Color(0xFFd70f4b),
+                            //Color(0xFFf02d3a),
+                            Color(0xFFf50110),
+                        )
+                    )
+                ),
+            colors = CardDefaults.cardColors(containerColor = Color.Transparent)
         ) {
             Text(
                 text = text,
@@ -61,7 +73,8 @@ fun UserChatMessage(
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = FontFamily.Default,
                 textAlign = TextAlign.Start,
-                lineHeight = 20.sp
+                lineHeight = 20.sp,
+                color = Color.White
             )
         }
     }

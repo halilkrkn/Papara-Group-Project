@@ -1,5 +1,7 @@
 package com.halilkrkn.chatchef.presentation.ChatGptScreen
 
+
+import AuthViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +22,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.halilkrkn.chatchef.navigation.util.AuthScreen
+import com.halilkrkn.chatchef.presentation.components.AiChatMessage
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -36,6 +43,7 @@ import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 fun ChatGptScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
+    authViewModel: AuthViewModel = hiltViewModel(),
     viewModel: ChatGptViewModel = hiltViewModel()
 ) {
     val chatState by viewModel.chatState.collectAsState()
@@ -44,7 +52,12 @@ fun ChatGptScreen(
         containerColor = MainBackgroundColor,
         topBar = {
             CustomTopAppBar(
-                onBackClick = { navController.popBackStack() },
+                onBackClick = {
+                    navController.popBackStack()
+                    authViewModel.signOut()
+                    navController.navigate(AuthScreen.Login.route)
+
+                },
                 notificationClick = { /*TODO*/ }
             )
         }
@@ -55,19 +68,7 @@ fun ChatGptScreen(
                 .fillMaxWidth()
                 .padding(top = innerPadding.calculateTopPadding()),
         ) {
-            Row(
-                modifier = Modifier
-                    .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "ChatGpt",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+
             Spacer(modifier = Modifier.height(8.dp))
 
             if(chatState.error.isNotBlank()){

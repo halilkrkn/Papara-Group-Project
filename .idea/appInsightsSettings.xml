@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.halilkrkn.chatchef" />
+                  <option name="mobileSdkAppId" value="1:565000358904:android:6c8cffec2e751e3b41240d" />
+                  <option name="projectId" value="papara-group-project" />
+                  <option name="projectNumber" value="565000358904" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
