@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.halilkrkn.chatchef.R
+import com.halilkrkn.chatchef.navigation.util.AuthScreen
 import com.halilkrkn.chatchef.presentation.components.ButtonComponent
 import com.halilkrkn.chatchef.presentation.components.Loader
 import com.halilkrkn.chatchef.presentation.components.TextFieldComponent
@@ -48,8 +49,8 @@ fun ForgotPasswordScreen(
     LaunchedEffect(uiState.transaction) {
         if (uiState.transaction) {
             Toast.makeText(context, "Email Sent, Check Your Email", Toast.LENGTH_SHORT).show()
-            navController.navigate("login") {
-                popUpTo("login") {
+            navController.navigate(AuthScreen.Login.route) {
+                popUpTo(AuthScreen.Login.route) {
                     inclusive = true
                 }
             }
