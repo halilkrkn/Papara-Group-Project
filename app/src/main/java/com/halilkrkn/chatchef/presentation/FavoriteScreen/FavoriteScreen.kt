@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,7 +56,7 @@ fun FavoriteScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(top = innerPadding.calculateTopPadding())
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -150,7 +151,7 @@ fun FavoriteCard(
             defaultElevation = 10.dp
         ),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White,
+            containerColor = colorResource(R.color.favorite_card_color),
             contentColor = Color.White
         ),
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
@@ -175,6 +176,7 @@ fun FavoriteCard(
                     imageVector = Icons.Filled.DeleteOutline,
                     contentDescription = null,
                     modifier = Modifier
+                        .align(Alignment.Bottom)
                         .clickable {
                             shouldShowItemDeletionDialog = true
                         }
@@ -182,7 +184,7 @@ fun FavoriteCard(
                 if (shouldShowItemDeletionDialog) {
                     FavoriteItemDeletionDialog({
                         shouldShowItemDeletionDialog = it
-                    },{
+                    }, {
                         onDeleted(favoriteMessage)
                     })
                 }
