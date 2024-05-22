@@ -8,9 +8,13 @@ import com.halilkrkn.chatchef.data.remote.ChatChefApi
 import com.halilkrkn.chatchef.data.remote.dto.Message
 import com.halilkrkn.chatchef.data.remote.dto.OpenAIRequestBody
 import com.halilkrkn.chatchef.data.remote.dto.OpenAIResponse
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 

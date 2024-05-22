@@ -13,7 +13,10 @@ import com.halilkrkn.chatchef.ui.theme.ColorButton
 import com.halilkrkn.chatchef.ui.theme.ColorButton1
 
 @Composable
-fun FavoriteItemDeletionDialog(shouldShowItemDeletionDialog: (Boolean) -> Unit) {
+fun FavoriteItemDeletionDialog(
+    shouldShowItemDeletionDialog: (Boolean) -> Unit,
+    onDeleteAction: () -> Unit
+    ) {
 
     AlertDialog(
         onDismissRequest = {
@@ -31,6 +34,7 @@ fun FavoriteItemDeletionDialog(shouldShowItemDeletionDialog: (Boolean) -> Unit) 
             Button(
                 onClick = {
                     shouldShowItemDeletionDialog(false)
+                    onDeleteAction()
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = ColorButton,
