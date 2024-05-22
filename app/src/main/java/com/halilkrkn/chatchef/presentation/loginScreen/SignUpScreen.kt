@@ -1,6 +1,6 @@
 package com.halilkrkn.chatchef.presentation.loginScreen
 
-import AuthViewModel
+import com.halilkrkn.chatchef.presentation.loginScreen.viewModel.AuthViewModel
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.halilkrkn.chatchef.R
 import com.halilkrkn.chatchef.navigation.util.AuthScreen
@@ -29,7 +30,6 @@ import com.halilkrkn.chatchef.presentation.components.ClickableLoginTextComponen
 import com.halilkrkn.chatchef.presentation.components.DividerTextComponent
 import com.halilkrkn.chatchef.presentation.components.HeadingTextComponent
 import com.halilkrkn.chatchef.presentation.components.TextFieldComponent
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.halilkrkn.chatchef.presentation.components.Loader
 import com.halilkrkn.chatchef.presentation.components.PasswordFieldComponent
 
@@ -37,7 +37,7 @@ import com.halilkrkn.chatchef.presentation.components.PasswordFieldComponent
 fun SignUpScreen(
     navController: NavController,
     onLoginClick: () -> Unit = {},
-    viewModel: AuthViewModel = viewModel()
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 

@@ -15,12 +15,11 @@ import javax.inject.Inject
 
 
 class AuthServiceImpl @Inject constructor(
-
+    private val firebaseAuth: FirebaseAuth,
+    private val firestoreService: FirestoreService
 ) : AuthService {
 
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val auth = getInstance()
-    private val firestoreService: FirestoreService = FirestoreServiceImpl()
 
     override suspend fun signInWithEmailAndPassword(email: String, password: String): Flow<FirebaseResult<FirebaseUser>> = flow {
         emit(FirebaseResult.Loading)

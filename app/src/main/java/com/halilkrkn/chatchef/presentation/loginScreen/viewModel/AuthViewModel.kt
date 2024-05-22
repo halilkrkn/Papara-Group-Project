@@ -1,39 +1,24 @@
+package com.halilkrkn.chatchef.presentation.loginScreen.viewModel
+
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseUser
-import com.halilkrkn.chatchef.data.firebase.implementation.AuthServiceImpl
 import com.halilkrkn.chatchef.data.firebase.FirebaseResult
-import com.halilkrkn.chatchef.data.firebase.implementation.FirestoreServiceImpl
 import com.halilkrkn.chatchef.data.firebase.service.AuthService
 import com.halilkrkn.chatchef.data.firebase.service.FirestoreService
+import com.halilkrkn.chatchef.presentation.loginScreen.state.AuthUiState
+import com.halilkrkn.chatchef.presentation.loginScreen.state.LoggingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-
-
-data class AuthUiState(
-    val isLoading: Boolean = false,
-    val user: FirebaseUser? = null,
-    val error: String? = null,
-    val firstName: String? = null,
-    val lastName: String? = null
-)
-
-data class LoggingState(
-    val transaction: Boolean = false,
-    val isLoading: Boolean = false,
-    val error: String? = null
-)
-
-class AuthViewModel  : ViewModel() {
-
-    private val authRepository = AuthServiceImpl()
-    private val firestoreService = FirestoreServiceImpl()
+@HiltViewModel
+class AuthViewModel @Inject constructor(
+    private val authRepository: AuthService,
+    private val firestoreService: FirestoreService
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AuthUiState())
     val uiState: StateFlow<AuthUiState> = _uiState
@@ -145,21 +130,21 @@ class AuthViewModel  : ViewModel() {
                 _loggingState.value = _loggingState.value.copy(isLoading = true)
                 when (isLoggedIn) {
                     is FirebaseResult.Success -> {
-                        Log.d("AuthViewModel", "isLoggedIn: ${isLoggedIn.data}")
+                        Log.d("com.halilkrkn.chatchef.presentation.loginScreen.viewModel.AuthViewModel", "isLoggedIn: ${isLoggedIn.data}")
                         _loggingState.value = _loggingState.value.copy(
                             isLoading = false,
                             transaction = isLoggedIn.data ?: false
                         )
                     }
                     is FirebaseResult.Error -> {
-                        Log.e("AuthViewModel", "isLoggedIn error: ${isLoggedIn.message}")
+                        Log.e("com.halilkrkn.chatchef.presentation.loginScreen.viewModel.AuthViewModel", "isLoggedIn error: ${isLoggedIn.message}")
                         _loggingState.value = _loggingState.value.copy(
                             isLoading = false,
                             error = isLoggedIn.message
                         )
                     }
                     FirebaseResult.Loading -> {
-                        Log.d("AuthViewModel", "isLoggedIn loading")
+                        Log.d("com.halilkrkn.chatchef.presentation.loginScreen.viewModel.AuthViewModel", "isLoggedIn loading")
                         _loggingState.value = _loggingState.value.copy(isLoading = true)
                     }
                 }

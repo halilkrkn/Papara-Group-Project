@@ -1,29 +1,38 @@
 package com.halilkrkn.chatchef.presentation.loginScreen
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.*
-
-import androidx.compose.runtime.*
-
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.halilkrkn.chatchef.presentation.loginScreen.viewModel.ForgotPasswordViewModel
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.halilkrkn.chatchef.R
 import com.halilkrkn.chatchef.presentation.components.ButtonComponent
 import com.halilkrkn.chatchef.presentation.components.Loader
 import com.halilkrkn.chatchef.presentation.components.TextFieldComponent
+import com.halilkrkn.chatchef.presentation.loginScreen.viewModel.ForgotPasswordViewModel
 
 @Composable
-fun ForgotPasswordScreen(navController: NavHostController, viewModel: ForgotPasswordViewModel = viewModel()) {
+fun ForgotPasswordScreen(
+    navController: NavHostController,
+    viewModel: ForgotPasswordViewModel = hiltViewModel()
+) {
     var email by remember { mutableStateOf("") }
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
@@ -36,8 +45,8 @@ fun ForgotPasswordScreen(navController: NavHostController, viewModel: ForgotPass
     }
 
 
-    LaunchedEffect(uiState.transactionState) {
-        if (uiState.transactionState) {
+    LaunchedEffect(uiState.transaction) {
+        if (uiState.transaction) {
             Toast.makeText(context, "Email Sent, Check Your Email", Toast.LENGTH_SHORT).show()
             navController.navigate("login") {
                 popUpTo("login") {

@@ -5,10 +5,9 @@ import com.halilkrkn.chatchef.data.firebase.service.FirestoreService
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class FirestoreServiceImpl : FirestoreService {
-
+class FirestoreServiceImpl @Inject constructor(
     private val firestore: FirebaseFirestore
-        get() = FirebaseFirestore.getInstance()
+) : FirestoreService {
 
     override suspend fun saveUserData(userId: String, firstName: String, lastName: String) {
         val userMap = mapOf(
