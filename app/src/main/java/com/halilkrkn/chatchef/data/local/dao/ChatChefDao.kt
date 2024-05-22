@@ -19,6 +19,6 @@ interface ChatChefDao {
     suspend fun deleteChatMessage(chatChefEntity: ChatChefEntity)
 
 //    @Query("SELECT * FROM chat_message WHERE userId = :userId")
-    @Query("SELECT * FROM chat_message WHERE isFavorite = 1")
-    fun getAllFavorite(/*userId: String*/): Flow<List<ChatChefEntity>>
+    @Query("SELECT * FROM chat_message WHERE isFavorite = 1 AND userId = :userId")
+    fun getAllFavorite(userId: String): Flow<List<ChatChefEntity>>
 }

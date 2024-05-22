@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class ChatChefEntity(
     @PrimaryKey(autoGenerate = true)
     val id : Int = 0,
-//    val userId: String,
+    val userId: String,
     val isFavorite: Boolean,
     val role: String,
     val content:String,

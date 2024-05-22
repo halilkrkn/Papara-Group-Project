@@ -67,4 +67,5 @@ class ChatGptViewModel @Inject constructor(
             chatChefRepository.deleteMessage(message)
         }
     }
+
 }

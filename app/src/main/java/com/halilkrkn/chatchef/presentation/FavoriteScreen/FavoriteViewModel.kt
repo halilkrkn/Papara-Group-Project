@@ -21,10 +21,10 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
     private val repository: ChatChefRepository,
-//    firebaseUser: FirebaseAuth?,
+    firebaseUser: FirebaseAuth?,
 ) : ViewModel() {
 
-//    private val userId = firebaseUser?.currentUser?.uid.toString()
+    private val userId = firebaseUser?.currentUser?.uid.toString()
 
     private val _state = mutableStateOf<FavoriteState>(FavoriteState())
     val state: State<FavoriteState> = _state
@@ -34,13 +34,13 @@ class FavoriteViewModel @Inject constructor(
 
 
     init {
-        getAllFavoriteMessage(/*userId*/)
+        getAllFavoriteMessage(userId)
     }
 
-    private fun getAllFavoriteMessage(/*userId: String*/) {
+    private fun getAllFavoriteMessage(userId: String) {
         _isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getAllMessages(/*userId = userId*/).onEach { result ->
+            repository.getAllMessages(userId = userId).onEach { result ->
                 when (result) {
                     is ApiResult.Success -> {
                         _state.value = FavoriteState(

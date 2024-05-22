@@ -16,8 +16,8 @@ sealed class BottomBarNavigationScreen(
     )
 
     data object FavoriteBottomBarNavigation : BottomBarNavigationScreen(
-        route = "profile",
-        title = "Profile",
+        route = "favorite",
+        title = "Favorite",
         icon = R.drawable.favorite_icon
     )
 }

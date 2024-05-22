@@ -15,6 +15,6 @@ interface ChatChefRepository {
     // Database Operations
     suspend fun insertMessage(message: ChatChefEntity)
     suspend fun deleteMessage(message: ChatChefEntity)
-    fun getAllMessages(/*userId: String*/): Flow<ApiResult<List<ChatChefEntity>>>
+    fun getAllMessages(userId: String): Flow<ApiResult<List<ChatChefEntity>>>
 
 }

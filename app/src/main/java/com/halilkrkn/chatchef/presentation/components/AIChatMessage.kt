@@ -48,7 +48,7 @@ fun AIChatMessage(
     fontWeight: FontWeight = FontWeight.SemiBold,
     fontSize: TextUnit = 13.sp,
     fontFamily: FontFamily = FontFamily.Default,
-    loading: @Composable () -> Unit = { },
+    loading: @Composable() (() -> Unit)? = null,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
 ) {
 
@@ -81,62 +81,66 @@ fun AIChatMessage(
                 verticalArrangement = Arrangement.Center
             ) {
                 Row {
-                    Text(
-                        text = buildAnnotatedString {
-                            append(message?.content ?: "")
-                            /*withStyle(
-                                style = SpanStyle(
-                                    color = TextPink
-                                )
-                            ) {
-                                append("Emmanuel")
-                            }
-                            append(", I am ChatChef's AI. How can I help you?")*/
-                        },
-                        fontWeight = fontWeight,
-                        fontSize = fontSize,
-                        fontFamily = fontFamily,
-                        textAlign = TextAlign.Start,
-                        lineHeight = 20.sp,
-                        modifier = Modifier
-                            .weight(1f)
-
-                    )
-                    IconToggleButton(
-                        checked = isFavorite,
-                        onCheckedChange = {
-                            isFavorite = !isFavorite
-                        },
-                        modifier = Modifier
-                            .size(18.dp)
-                            .align(Alignment.Bottom)
-                    ) {
-                        Icon(
+                    if (loading != null) {
+                        loading()
+                    }else{
+                        Text(
+                            text = buildAnnotatedString {
+                                append(message?.content ?: "")
+                                /*withStyle(
+                                    style = SpanStyle(
+                                        color = TextPink
+                                    )
+                                ) {
+                                    append("Emmanuel")
+                                }
+                                append(", I am ChatChef's AI. How can I help you?")*/
+                            },
+                            fontWeight = fontWeight,
+                            fontSize = fontSize,
+                            fontFamily = fontFamily,
+                            textAlign = TextAlign.Start,
+                            lineHeight = 20.sp,
                             modifier = Modifier
-                                .clickable {
-                                    if (message != null) {
-                                        if (!isFavorite) {
-                                            isFavorite = true
-                                            viewModel.insertMessage(
-                                                message.toChatChefEntity().copy(isFavorite = true)
-                                            )
-                                        }
+                                .weight(1f)
+
+                        )
+                        IconToggleButton(
+                            checked = isFavorite,
+                            onCheckedChange = {
+                                isFavorite = !isFavorite
+                            },
+                            modifier = Modifier
+                                .size(18.dp)
+                                .align(Alignment.Bottom)
+                        ) {
+                            Icon(
+                                modifier = Modifier
+                                    .clickable {
+                                        if (message != null) {
+                                            if (!isFavorite) {
+                                                isFavorite = true
+                                                viewModel.insertMessage(
+                                                    message.toChatChefEntity().copy(isFavorite = true)
+                                                )
+                                            }
 //                                        else {
 //                                            viewModel.deleteMessage(message.toChatChefEntity().copy(isFavorite = false))
 //                                        }
-                                    }
+                                        }
+                                    },
+                                tint = TextPink,
+                                imageVector = if (isFavorite) {
+                                    Icons.Filled.Favorite
+                                } else {
+                                    Icons.Default.FavoriteBorder
                                 },
-                            tint = TextPink,
-                            imageVector = if (isFavorite) {
-                                Icons.Filled.Favorite
-                            } else {
-                                Icons.Default.FavoriteBorder
-                            },
-                            contentDescription = null
-                        )
+                                contentDescription = null
+                            )
+                        }
                     }
+
                 }
-                //loading()
             }
         }
     }
