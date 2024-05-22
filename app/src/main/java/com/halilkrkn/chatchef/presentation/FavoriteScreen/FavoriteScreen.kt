@@ -1,14 +1,18 @@
 package com.halilkrkn.chatchef.presentation.FavoriteScreen
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
@@ -27,8 +31,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.halilkrkn.chatchef.R
 import com.halilkrkn.chatchef.data.local.model.ChatChefEntity
+import com.halilkrkn.chatchef.presentation.components.EmptyPageLottie
 
 @Composable
 fun FavoriteScreen(
@@ -50,9 +55,53 @@ fun FavoriteScreen(
                     .padding(top = 8.dp)
                     .fillMaxSize()
             ) {
-                items(items = messageList) { message ->
+                items(
+                    items = messageList,
+                    key = { message -> message.id }
+                ) { message ->
                     FavoriteCard(favoriteMessageList = message)
                 }
+            }
+
+        }
+
+        if (state.favoriteList.isEmpty() && !state.isLoading) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                EmptyPageLottie(
+                    modifier = Modifier
+                        .size(width = 200.dp, height = 200.dp),
+                    raw = R.raw.empty_page,
+                    speed = 0.5f
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = if (state.favoriteList.isEmpty()) "No Favorites Messages" else return@Column,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
+            }
+        }
+
+        if (state.error.isNotBlank()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = state.error,
+                    color = Color.Red,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp)
+                        .align(Alignment.Center)
+                )
             }
         }
     }
@@ -79,13 +128,14 @@ fun TopBar(modifier: Modifier = Modifier) {
 @Composable
 fun FavoriteCard(
     favoriteMessageList: ChatChefEntity,
+//    onDeleted: (ChatChefEntity) -> Unit = {},
 ) {
     val message = favoriteMessageList.content
 
     Card(
         modifier = Modifier
             .clickable {
-                 // delete işlemi için
+                // delete işlemi için
             }
             .padding(top = 10.dp, start = 10.dp, end = 10.dp, bottom = 5.dp)
             .fillMaxWidth(),
