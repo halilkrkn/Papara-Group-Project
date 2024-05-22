@@ -293,7 +293,7 @@ fun FavoriteCard(
                 if (shouldShowItemDeletionDialog) {
                     FavoriteItemDeletionDialog({
                         shouldShowItemDeletionDialog = it
-                    },{
+                    }, {
                         onDeleted(favoriteMessage)
                     })
                 }
