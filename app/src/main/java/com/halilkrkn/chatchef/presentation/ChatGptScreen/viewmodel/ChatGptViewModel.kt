@@ -4,17 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.halilkrkn.chatchef.core.ApiResult.ApiResult
 import com.halilkrkn.chatchef.data.local.model.ChatChefEntity
-import com.halilkrkn.chatchef.data.mapper.toChatChefEntity
 import com.halilkrkn.chatchef.data.remote.dto.Message
 import com.halilkrkn.chatchef.data.remote.dto.MessageResponse
 import com.halilkrkn.chatchef.data.repository.ChatChefRepository
-import com.halilkrkn.chatchef.presentation.FavoriteScreen.FavoriteState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

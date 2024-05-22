@@ -3,7 +3,6 @@ package com.halilkrkn.chatchef.presentation.ChatGptScreen
 import androidx.compose.foundation.layout.Arrangement
 import com.halilkrkn.chatchef.presentation.loginScreen.viewModel.AuthViewModel
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,7 +28,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.halilkrkn.chatchef.navigation.util.AuthScreen
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.halilkrkn.chatchef.R
@@ -39,6 +37,7 @@ import com.halilkrkn.chatchef.presentation.components.AIChatMessage
 import com.halilkrkn.chatchef.presentation.components.BottomContainer
 import com.halilkrkn.chatchef.presentation.components.CustomCard
 import com.halilkrkn.chatchef.presentation.components.CustomTopAppBar
+import com.halilkrkn.chatchef.presentation.components.GradientText
 import com.halilkrkn.chatchef.presentation.components.LoadingComponents
 import com.halilkrkn.chatchef.presentation.components.UserChatMessage
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
@@ -71,7 +70,6 @@ fun ChatGptScreen(
                     navController.navigate(AuthScreen.Login.route)
 
                 },
-                notificationClick = { /*TODO*/ }
             )
         }
     ) { innerPadding ->
@@ -104,7 +102,8 @@ fun ChatGptScreen(
                 }
             }
             if (chatState.messageList.isEmpty()) {
-                Text(text = "Selam ${name.value}")
+                GradientText(text ="Selam ${name.value}")
+                Spacer(modifier = Modifier.height(250.dp))
                 LazyRow(
                     modifier = Modifier
                         .fillMaxWidth()

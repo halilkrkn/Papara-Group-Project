@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import com.halilkrkn.chatchef.R
 
 @Composable
 fun CustomCard(
@@ -20,7 +22,7 @@ fun CustomCard(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(8.dp),
     textColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
-    containerColor: Color = MaterialTheme.colorScheme.surfaceVariant // Default container color
+    containerColor: Color = colorResource(id = R.color.ai_chat_bubble)
 ) {
     Card(
         modifier = modifier

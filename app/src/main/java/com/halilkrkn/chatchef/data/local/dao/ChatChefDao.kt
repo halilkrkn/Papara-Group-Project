@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.halilkrkn.chatchef.core.ApiResult.ApiResult
 import com.halilkrkn.chatchef.data.local.model.ChatChefEntity
 import kotlinx.coroutines.flow.Flow
 

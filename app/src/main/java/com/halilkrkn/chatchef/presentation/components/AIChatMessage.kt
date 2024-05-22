@@ -17,7 +17,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -48,7 +47,7 @@ fun AIChatMessage(
     fontWeight: FontWeight = FontWeight.SemiBold,
     fontSize: TextUnit = 13.sp,
     fontFamily: FontFamily = FontFamily.Default,
-    loading: @Composable() (() -> Unit)? = null,
+    loading: @Composable (() -> Unit)? = null,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
 ) {
 
@@ -57,7 +56,6 @@ fun AIChatMessage(
             message?.toChatChefEntity()?.isFavorite ?: false
         )
     }
-    val state = viewModel.chatState.collectAsState().value
 
     Column(
         modifier = Modifier.fillMaxWidth(),

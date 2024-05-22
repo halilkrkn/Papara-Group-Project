@@ -40,7 +40,7 @@ import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notificationClick: () -> Unit) {
+fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit) {
     TopAppBar(
         modifier = Modifier
             .padding(start = 10.dp, end = 20.dp),
@@ -95,7 +95,7 @@ fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notif
 @Composable
 fun CustomTopAppBarPreview() {
     Scaffold(
-        topBar = { CustomTopAppBar(onBackClick = {},notificationClick = {}) },
+        topBar = { CustomTopAppBar(onBackClick = {}) },
         content = {
         }
 
