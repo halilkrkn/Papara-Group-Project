@@ -5,6 +5,8 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    id ("com.google.devtools.ksp")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -39,11 +41,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -56,7 +58,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    externalNativeBuild {
+   externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
             version = "3.22.1"
@@ -88,6 +90,9 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+//    implementation(libs.firebase.auth)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
@@ -105,14 +110,20 @@ dependencies {
     // Lottie
     implementation(libs.lottie.compose)
 
+    // Firebase
+//    implementation(libs.firebase.auth)
+//    implementation(libs.firebase.firestore.ktx)
 
     // Swipe Refresh
     implementation(libs.accompanist.swiperefresh)
 
     // Room
-//    implementation("androidx.room:room-ktx:2.6.1")
-//    kapt("androidx.room:room-compiler:2.6.1")
-//    implementation("androidx.room:room-paging:2.6.1")
+    implementation(libs.androidx.room.ktx)
+//    kapt(libs.androidx.room.compiler)
+    ksp("androidx.room:room-compiler:2.6.1")
+
+    implementation (libs.androidx.room.runtime)
+
 
 
     implementation(libs.androidx.material.icons.extended)

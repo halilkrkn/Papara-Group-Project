@@ -21,8 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.halilkrkn.chatchef.R
+import com.halilkrkn.chatchef.ui.theme.ColorButton
 import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 
 /***
@@ -37,57 +40,33 @@ import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notificationClick: () -> Unit) {
+fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit) {
     TopAppBar(
         modifier = Modifier
             .padding(start = 10.dp, end = 20.dp),
-        title = { Text(text = "") },
+        title = {  Text(
+            text = "ChatChef",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold
+        ) },
         colors = TopAppBarDefaults.topAppBarColors(MainBackgroundColor),
-        navigationIcon = {
-
-
-            Box(
-                modifier = Modifier
-                    .size(50.dp, 50.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(colorResource(id = R.color.top_app_bar_icon_bg))
-                    .clickable {
-                        onBackClick()
-                        /***
-                        Back Button Transactions
-                         ***/
-                    }
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.left_arrow),
-                    tint = colorResource(id = R.color.top_app_bar_icon_fg),
-                    contentDescription = "Back",
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            }
-
-
-        },
         actions = {
             Box(
                 modifier = Modifier
-                    .size(50.dp, 50.dp)
+                    .size(45.dp, 45.dp)
                     .clip(RoundedCornerShape(16.dp))
-                    .background(colorResource(id = R.color.top_app_bar_icon_bg))
+                    .background(colorResource(id = R.color.bottom_chat))
                     .clickable {
-                        notificationClick()
+                        onBackClick()
                         /***
                         Notification Button Transactions
                          ***/
-                    }
+                    },
+
             ) {
                 Icon(
-                    imageVector = if (isNotificationOn) {
-                        ImageVector.vectorResource(id = R.drawable.notification_true)
-                    } else {
-                        ImageVector.vectorResource(id = R.drawable.notification_false)
-                    },
-                    tint = colorResource(id = R.color.top_app_bar_icon_fg),
+                   imageVector = ImageVector.vectorResource(id = R.drawable.logout),
+                    tint = ColorButton,
                     contentDescription = "Back",
                     modifier = Modifier.align(Alignment.Center),
 
@@ -97,13 +76,26 @@ fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notif
         }
     )
 }
+/*Row(
+                modifier = Modifier
+                    .padding(start = 10.dp, bottom = 10.dp, top = 5.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "ChatGpt",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }*/
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showBackground = true)
 @Composable
 fun CustomTopAppBarPreview() {
     Scaffold(
-        topBar = { CustomTopAppBar(onBackClick = {},notificationClick = {}) },
+        topBar = { CustomTopAppBar(onBackClick = {}) },
         content = {
         }
 

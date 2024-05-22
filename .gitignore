@@ -14,6 +14,19 @@
 .cxx
 local.properties
 /.idea/.name
+/.idea/compiler.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/gradle.xml
+/.idea/kotlinc.xml
+/.idea/migrations.xml
+/.idea/misc.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_22_24_[Changes]/shelved.patch
+/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_22_53_[Changes]/shelved.patch
+/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_22_24__Changes_.xml
+/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_22_53__Changes_.xml
+/.idea/vcs.xml
+/.idea/.name
 /.idea/appInsightsSettings.xml
 /.idea/shelf/Changes.xml
 /.idea/compiler.xml
@@ -31,3 +44,5 @@ local.properties
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_17_05_2024_11_47__Changes_.xml
 /.idea/shelf/Uncommitted_changes_before_Checkout_at_17_05_2024_11_47__Changes_1.xml
 /.idea/vcs.xml
+/app/src/main/cpp/
+/.idea/

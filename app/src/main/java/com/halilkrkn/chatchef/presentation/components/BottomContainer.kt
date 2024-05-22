@@ -17,13 +17,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BottomContainer(modifier: Modifier = Modifier, sendButtonClicked: (String) -> Unit = {}) {
+fun BottomContainer(
+    modifier: Modifier = Modifier,
+    sendButtonClicked: (String) -> Unit = {}
+) {
     var value by rememberSaveable { mutableStateOf("") }
 
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 2.dp, bottom = 6.dp)
     ) {
         CustomTextField(
             modifier = Modifier
@@ -40,6 +45,7 @@ fun BottomContainer(modifier: Modifier = Modifier, sendButtonClicked: (String) -
                 .weight(0.60f)
         ) {
             sendButtonClicked(value)
+            value = ""
         }
     }
 }
