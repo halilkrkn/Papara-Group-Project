@@ -9,5 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="top_app_bar_icon_bg">#FFE0DE</color>
     <color name="top_app_bar_icon_fg">#FF5E77</color>
-    <color name="ai_chat_bubble">#f5f5f5</color>
+    <color name="ai_chat_bubble">#e6e6e9</color>
+    <color name="bottom_chat">#e7ecef</color>
+    <color name="loading_component">#66666e</color>
 </resources>

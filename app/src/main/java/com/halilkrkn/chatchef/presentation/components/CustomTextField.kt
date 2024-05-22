@@ -52,7 +52,8 @@ fun CustomTextField(modifier: Modifier, value: String, updatedText: (String) -> 
             colors = TextFieldDefaults.colors(
                 cursorColor = Color.Black,
                 focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
+                unfocusedIndicatorColor = Color.Transparent,
+                unfocusedContainerColor = colorResource(id = R.color.bottom_chat)
             )
         )
     }

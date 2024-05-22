@@ -55,7 +55,7 @@ fun CustomTopAppBar(isNotificationOn:Boolean=false,onBackClick: () -> Unit,notif
                 modifier = Modifier
                     .size(45.dp, 45.dp)
                     .clip(RoundedCornerShape(16.dp))
-                    .background(colorResource(id = R.color.top_app_bar_icon_bg))
+                    .background(colorResource(id = R.color.bottom_chat))
                     .clickable {
                         onBackClick()
                         /***

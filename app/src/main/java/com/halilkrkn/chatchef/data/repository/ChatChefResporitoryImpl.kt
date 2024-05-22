@@ -36,10 +36,18 @@ class ChatChefRepositoryImpl @Inject constructor(
     override suspend fun deleteMessage(message: ChatChefEntity) {
         chatChefDatabase.chatChefDao().deleteChatMessage(message)
     }
+    /*
     override fun getAllMessages(userId: String): Flow<ApiResult<List<ChatChefEntity>>> = flow {
         emit(ApiResult.Loading)
         val messages = chatChefDatabase.chatChefDao().getAllFavorite(userId).first()
         emit(ApiResult.Success(messages))
+    }*/
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun getAllMessages(userId: String): Flow<ApiResult<List<ChatChefEntity>>> = flowOf<ApiResult<List<ChatChefEntity>>>(ApiResult.Loading)
+    .flatMapConcat {
+        chatChefDatabase.chatChefDao().getAllFavorite(userId)
     }
-
+    .map {
+        ApiResult.Success(it)
+    }
 }
