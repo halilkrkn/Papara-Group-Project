@@ -34,10 +34,9 @@ fun SetupAuthGraph(
         composable(route = AuthScreen.Register.route){
             SignUpScreen(navController = navController)
         }
+
         composable(route = Graph.BOTTOMBAR){
             MainScreen()
         }
-
     }
-
 }

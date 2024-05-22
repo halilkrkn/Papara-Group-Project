@@ -1,5 +1,6 @@
 package com.halilkrkn.chatchef.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,9 +17,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +36,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.halilkrkn.chatchef.data.mapper.toChatChefEntity
+import com.halilkrkn.chatchef.data.remote.dto.Message
+import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptViewModel
 import com.halilkrkn.chatchef.R
 import com.halilkrkn.chatchef.presentation.ChatGptScreen.viewmodel.ChatGptState
 import com.halilkrkn.chatchef.ui.theme.ColorButton1
@@ -41,7 +48,8 @@ import com.halilkrkn.chatchef.ui.theme.TextPink
 @Composable
 fun AIChatMessage(
     modifier: Modifier = Modifier,
-    message: String = "",
+    message: Message ?= null,
+    viewModel: ChatGptViewModel = hiltViewModel(),
     fontWeight: FontWeight = FontWeight.SemiBold,
     fontSize: TextUnit = 13.sp,
     fontFamily: FontFamily = FontFamily.Default,
@@ -49,7 +57,8 @@ fun AIChatMessage(
     horizontalAlignment: Alignment.Horizontal = Alignment.Start
 ) {
 
-    var isFavorite by remember { mutableStateOf(false) }
+    var isFavorite by rememberSaveable { mutableStateOf(message?.toChatChefEntity()?.isFavorite ?: false) }
+    val state = viewModel.chatState.collectAsState().value
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -104,6 +113,18 @@ fun AIChatMessage(
                             .align(Alignment.Bottom)
                     ) {
                         Icon(
+                            modifier = Modifier
+                                .clickable {
+                                    if (message != null) {
+                                        if (!isFavorite) {
+                                            isFavorite = true
+                                            viewModel.insertMessage(message.toChatChefEntity().copy(isFavorite = true))
+                                        }
+//                                        else {
+//                                            viewModel.deleteMessage(message.toChatChefEntity().copy(isFavorite = false))
+//                                        }
+                                    }
+                                },
                             tint = TextPink,
                             imageVector = if (isFavorite) {
                                 Icons.Filled.Favorite
@@ -127,6 +148,6 @@ fun AIChatMessage(
 )
 @Composable
 private fun AiChatMessagePreview() {
-    //AIChatMessage()
+    AIChatMessage()
 }
 

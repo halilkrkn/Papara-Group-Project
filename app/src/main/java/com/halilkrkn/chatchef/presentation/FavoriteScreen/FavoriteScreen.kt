@@ -2,18 +2,26 @@ package com.halilkrkn.chatchef.presentation.FavoriteScreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -29,26 +37,113 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.halilkrkn.chatchef.R
+import com.halilkrkn.chatchef.data.local.model.ChatChefEntity
+import com.halilkrkn.chatchef.presentation.components.EmptyPageLottie
 
 @Composable
-fun FavoriteScreen() {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        items(3) {
-            FavoriteCard()
+fun FavoriteScreen(
+    viewModel: FavoriteViewModel = hiltViewModel(),
+) {
+    val state = viewModel.state.value
+    val messageList = state.favoriteList
+
+    Scaffold(
+        topBar = { TopBar() }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            LazyColumn(
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .fillMaxSize()
+            ) {
+                items(
+                    items = messageList,
+                    key = { message -> message.id }
+                ) { message ->
+                    FavoriteCard(favoriteMessageList = message)
+                }
+            }
+
+        }
+
+        if (state.favoriteList.isEmpty() && !state.isLoading) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                EmptyPageLottie(
+                    modifier = Modifier
+                        .size(width = 200.dp, height = 200.dp),
+                    raw = R.raw.empty_page,
+                    speed = 0.5f
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = if (state.favoriteList.isEmpty()) "No Favorites Messages" else return@Column,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                )
+            }
+        }
+
+        if (state.error.isNotBlank()) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = state.error,
+                    color = Color.Red,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp)
+                        .align(Alignment.Center)
+                )
+            }
         }
     }
 }
 
 @Composable
-fun FavoriteCard() {
+fun TopBar(modifier: Modifier = Modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Favorite Messages",
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center,
+            color = Color.Black
+        )
+    }
+}
 
-    var shouldShowItemDeletionDialog by remember { mutableStateOf(false) }
+@Composable
+fun FavoriteCard(
+    favoriteMessageList: ChatChefEntity,
+//    onDeleted: (ChatChefEntity) -> Unit = {},
+) {
+    val message = favoriteMessageList.content
 
     Card(
         modifier = Modifier
+            .clickable {
+                // delete işlemi için
+            }
             .padding(top = 10.dp, start = 10.dp, end = 10.dp, bottom = 5.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(
@@ -66,30 +161,13 @@ fun FavoriteCard() {
             modifier = Modifier
                 .padding(start = 15.dp, end = 15.dp, top = 15.dp, bottom = 10.dp)
         ) {
-            Row {
-                Text(
-                    text = "sfsdf",
-                    textAlign = TextAlign.Justify,
-                    fontSize = 13.sp,
-                    color = Color.Black,
-                    modifier = Modifier
-                        .weight(1f)
-                )
-                Icon(
-                    tint = Color.Black,
-                    imageVector = Icons.Filled.DeleteOutline,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .clickable {
-                            shouldShowItemDeletionDialog = true
-                        }
-                )
-                if (shouldShowItemDeletionDialog) {
-                    FavoriteItemDeletionDialog {
-                        shouldShowItemDeletionDialog = it
-                    }
-                }
-            }
+            Text(
+                text = message.toString(),
+                textAlign = TextAlign.Justify,
+                fontSize = 13.sp,
+                color = Color.Black
+            )
+
         }
     }
 }

@@ -54,7 +54,6 @@ fun BottomBar(navController: NavHostController) {
     }
 
     if (isBottomBarVisible) {
-
         NavigationBar(
             containerColor = Color.White,
             contentColor = Color.Black,
@@ -70,7 +69,6 @@ fun BottomBar(navController: NavHostController) {
     }
 }
 
-
 @Composable
 fun RowScope.AddItem(
     screen: BottomBarNavigationScreen,
@@ -83,16 +81,13 @@ fun RowScope.AddItem(
                 text = screen.title
             )
         },
-
         icon = {
             Icon(
                 painter = painterResource(id = screen.icon),
                 contentDescription = "Navigation Icon"
             )
         },
-
         selected = currentDestination == screen.route,
-
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)

@@ -34,8 +34,8 @@ import com.halilkrkn.chatchef.ui.theme.MainBackgroundColor
 fun ChatGptScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
+    viewModel: ChatGptViewModel = hiltViewModel(),
     authViewModel: AuthViewModel = hiltViewModel(),
-    viewModel: ChatGptViewModel = hiltViewModel()
 ) {
     val chatState by viewModel.chatState.collectAsState()
 
@@ -62,7 +62,7 @@ fun ChatGptScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            if(chatState.error.isNotBlank()){
+            if (chatState.error.isNotBlank()) {
                 Text(text = chatState.error)
             }
 
@@ -83,6 +83,7 @@ fun ChatGptScreen(
             }
             BottomContainer(){
                 viewModel.sendMessage(it)
+
             }
         }
     }
