@@ -1,14 +1,23 @@
-
   <h3 align="center">CHAT CHEF</h3>
 </p>
-
 <p align="center">
-  Chat Chef, kullanıcıların yemekle ilgili sorular sormak ve öneriler almak için kullanabilecekleri interaktif bir chat uygulamasıdır. Bu uygulama, ChatGPT API'yi kullanarak kullanıcıların yemek dünyasında keşif yapmalarını sağlar. Kullanıcılar, restoran önerileri, yemek tarifleri,yemek önerileri, yemek malzemeleri hakkında bilgi ve daha fazlası için bu platformu kullanabilirler.
+  Chat Chef, kullanıcıların yemekle ilgili sorular sormak ve öneriler almak için kullanabilecekleri interaktif bir chat uygulamasıdır. Bu uygulama, ChatGPT API'yi kullanarak kullanıcıların yemek dünyasında keşif yapmalarını sağlar. Kullanıcılar, restoran önerileri, yemek tarifleri, yemek önerileri, yemek malzemeleri hakkında bilgi ve daha fazlası için bu platformu kullanabilirler.
     <br />
 </p>
 <br />
 
-## Proje Hakkında
+<div style="display: flex; justify-content: center;">
+    <img src="https://raw.githubusercontent.com/halilkrkn/Papara-Group-Project/main/images/4.png" width="20%">
+    <img src="https://raw.githubusercontent.com/halilkrkn/Papara-Group-Project/main/images/5.png" width="20%">
+    <img src="https://raw.githubusercontent.com/halilkrkn/Papara-Group-Project/main/images/6.png" width="20%">
+</div>
+
+<div style="display: flex; justify-content: center;">
+    <img src="https://raw.githubusercontent.com/halilkrkn/Papara-Group-Project/main/images/7.png" width="20%">
+    <img src="https://raw.githubusercontent.com/halilkrkn/Papara-Group-Project/main/images/1.png" width="20%">
+    <img src="https://raw.githubusercontent.com/halilkrkn/Papara-Group-Project/main/images/2.png" width="20%">
+    <img src="https://raw.githubusercontent.com/halilkrkn/Papara-Group-Project/main/images/3.png" width="20%">
+</div>
 
 #### Kullanılan Teknolojiler
 - Jetpack Compose
