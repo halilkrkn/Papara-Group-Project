@@ -30,7 +30,7 @@
 - Side Effect
 - Navigation
 #### Proje Grubu
-- [Halil Karkın](https://github.com/halilkrkn)
+- Halil İbrahim KARKIN: [Halil Karkın](https://github.com/halilkrkn)
 - Yusuf Mücahit Solmaz: [@Yusuf-Solmaz](https://github.com/Yusuf-Solmaz)
 - Büşra Öner: [@sbusraoner](https://github.com/sbusraoner)
 - Rabia Kambur: [@rabiakambur](https://github.com/rabiakambur)
