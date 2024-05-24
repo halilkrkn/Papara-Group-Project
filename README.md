@@ -23,7 +23,7 @@
 * [Glide](https://github.com/bumptech/glide)
 * [Retrofit](https://square.github.io/retrofit/)
 * [Room Database](https://developer.android.com/training/data-storage/room)
-* [Dependency injection-Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+* [Dependency Injection (Hilt)](https://developer.android.com/training/dependency-injection/hilt-android)
 * [Navigation](https://developer.android.com/develop/ui/compose/navigation)
 * [State Hoisting](https://developer.android.com/develop/ui/compose/state-hoisting)
 * [Coroutines](https://developer.android.com/kotlin/coroutines?hl=tr)
